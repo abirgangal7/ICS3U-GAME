@@ -46,13 +46,13 @@ public class Room {
 
     public String getLongDescription() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name).append("\n");
+        sb.append("\n").append(name).append("\n");
         sb.append(description).append("\n");
 
         if (!items.isEmpty()) {
-            sb.append("You see: ");
+            sb.append("You see ");
             for (Item item : items) {
-                sb.append(item.getName()).append(", ");
+                sb.append(item.getDescription().toLowerCase()).append(", ");
             }
             // Remove trailing comma and space
             sb.setLength(sb.length() - 2);

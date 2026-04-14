@@ -1,4 +1,6 @@
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.Arrays;
 
 public class CommandParser {
     public void parse(String input, Player player, Map<String, Room> rooms) {
@@ -47,11 +49,11 @@ public class CommandParser {
                 if (words.length < 2) {
                     System.out.println("Take what?");
                 } else {
-                    String itemName = words[1];
+                    String itemName = Arrays.stream(words).skip(1).collect(Collectors.joining());
                     Room room = rooms.get(player.getCurrentRoomId());
                     Item itemToTake = null;
                     for (Item item : room.getItems()) {
-                        if (item.getName().equalsIgnoreCase(itemName)) {
+                        if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
                             itemToTake = item;
                             break;
                         }
@@ -69,10 +71,10 @@ public class CommandParser {
                 if (words.length < 2) {
                     System.out.println("Drop what?");
                 } else {
-                    String itemName = words[1];
+                    String itemName = Arrays.stream(words).skip(1).collect(Collectors.joining());
                     Item itemToDrop = null;
                     for (Item item : player.getInventory()) {
-                        if (item.getName().equalsIgnoreCase(itemName)) {
+                        if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
                             itemToDrop = item;
                             break;
                         }

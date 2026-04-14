@@ -7,9 +7,9 @@
       },
       "items": [
         {
-          "id": "key1",
-          "name": "Key",
-          "description": "A small rusty key."
+          "id": "shiny key",
+          "name": "Shiny Key",
+          "description": "A small key with a particular shine"
         }
       ]
     },
@@ -19,7 +19,13 @@
       "exits": {
         "south": "entrance"
       },
-      "items": []
+      "items": [
+        {
+          "id": "dusty book",
+          "name": "Dusty Book",
+          "description": "A book littered with dustballs and cobwebs."
+        }
+      ]
     }
   }
   
