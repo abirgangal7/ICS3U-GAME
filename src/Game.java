@@ -17,7 +17,7 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Text Adventure Game!");
         Room currentRoom = rooms.get(player.getCurrentRoomId());
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(currentRoom.getLongDescription(player));
 
         while (true) {
             

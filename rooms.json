@@ -17,17 +17,22 @@
           "id": "lantern",
           "name": "Lantern",
           "description": "A lantern with its candle barely a-flame",
-          "use": "unlock",
+          "use": "light",
           "weight": 5
         }
-      ]
+      ],
+      "tags": []
     },
+
     "library": {
       "name": "Library",
       "description": "Books line the walls. It's quiet... A door leads south. A door lined with silver stands tall westward.",
       "exits": {
         "south": "entrance",
         "west": "chamber"
+      },
+      "lockedExits": {
+        "west": "libkey"
       },
       "items": [
         {
@@ -37,8 +42,10 @@
           "use": "read",
           "weight": 2
         }
-      ]
+      ],
+      "tags": ["light"]
     },
+
     "chamber": {
       "name": "Lavish Chambers",
       "description": "Marvelous portraits line the walls, all leading to a pristine throne. This seems to be the abode of great royalty.",
@@ -48,7 +55,7 @@
       "items" : [
         {
           "id": "gold",
-          "name": "Pile of Gold",
+          "name": "Pile of Gold Coins",
           "description": "A stack of glimmering gold coins",
           "use": "money",
           "weight": 2
@@ -60,7 +67,7 @@
           "use": "x",
           "weight": 5
         }
-      ]
+      ],
+      "tags": []
     }
   }
-  

@@ -22,6 +22,14 @@ public class RoomLoader {
                     exits.put(exit.getKey(), exit.getValue().getAsString());
                 }
 
+                Map<String, String> lockedExits = new HashMap<>();
+                if (roomData.has("lockedExits")) {
+                    JsonObject lockedExitsJson = roomData.getAsJsonObject("lockedExits");
+                    for (Map.Entry<String, JsonElement> lock : lockedExitsJson.entrySet()) {
+                        lockedExits.put(lock.getKey(), lock.getValue().getAsString());
+                    }
+                }
+
                 List<Item> items = new ArrayList<>();
                 JsonArray itemsJson = roomData.getAsJsonArray("items");
                 for (JsonElement itemElement : itemsJson) {
@@ -34,7 +42,14 @@ public class RoomLoader {
                     items.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
                 }
 
-                Room room = new Room(roomId, name, description, exits, items);
+                List<String> tags = new ArrayList<>();
+                JsonArray tagsJson = roomData.getAsJsonArray("tags");
+                for (JsonElement tagElement : tagsJson) {
+                    String tag = tagElement.getAsString();
+                    tags.add(tag);
+                }
+
+                Room room = new Room(roomId, name, description, exits, lockedExits, items, tags);
                 rooms.put(roomId, room);
             }
         } catch (Exception e) {
