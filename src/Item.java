@@ -3,12 +3,14 @@ public class Item {
     private String name;
     private String description;
     private String use;
+    private int weight;
 
-    public Item(String id, String name, String description, String use) {
+    public Item(String id, String name, String description, String use, int weight) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.use = use;
+        this.weight = weight;
     }
 
     public String getId() {
@@ -25,5 +27,9 @@ public class Item {
 
     public String getUse() {
         return use;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 }

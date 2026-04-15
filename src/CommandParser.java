@@ -16,16 +16,27 @@ public class CommandParser {
             case "go":
                 if (words.length < 2) {
                     System.out.println("Go where?");
+                } else if (words[1].toLowerCase().equalsIgnoreCase("back")) {
+                    Room currentRoom = rooms.get(player.getCurrentRoomId());
+                    if (player.getPrevRoomId() != player.getCurrentRoomId()) {
+                        player.setCurrentRoomId(player.getPrevRoomId());
+                        currentRoom = rooms.get(player.getCurrentRoomId());
+                        System.out.println(currentRoom.getLongDescription());
+                    } else {
+                        System.out.println("You haven't even moved yet...");
+                    }
                 } else {
                     String direction = words[1];
                     Room currentRoom = rooms.get(player.getCurrentRoomId());
+
                     String nextRoomId = currentRoom.getExits().get(direction);
+
                     if (nextRoomId != null) {
+                        player.setPrevRoomId(currentRoom.getId());;
                         player.setCurrentRoomId(nextRoomId);
-                        System.out.println("You move " + direction + ".");
+                        System.out.println("You move " + direction + ".\n");
                         currentRoom = rooms.get(player.getCurrentRoomId());
                         System.out.println(currentRoom.getLongDescription());
-
                     } else {
                         System.out.println("You can't go that way.");
                     }
@@ -41,8 +52,9 @@ public class CommandParser {
                 } else {
                     System.out.println("You are carrying:");
                     for (Item item : player.getInventory()) {
-                        System.out.println("- " + item.getName());
+                        System.out.println("- " + item.getName() + "    " + item.getWeight() + " lb(s))");
                     }
+                    System.out.println(player.getCarry() + "/" + player.getCarry_cap() + " lbs");
                 }
                 break;
             case "take":
@@ -58,10 +70,15 @@ public class CommandParser {
                             break;
                         }
                     }
+                    
                     if (itemToTake != null) {
-                        room.removeItem(itemToTake);
-                        player.addItem(itemToTake);
-                        System.out.println("You take the " + itemToTake.getName() + ".");
+                        if (player.getCarry() + itemToTake.getWeight() <= player.getCarry_cap()) {
+                            room.removeItem(itemToTake);
+                            player.addItem(itemToTake);
+                            System.out.println("You take the " + itemToTake.getName() + ".");
+                        } else {
+                            System.out.println("You are carrying too much, drop something first.");
+                        }
                     } else {
                         System.out.println("There is no " + itemName + " here.");
                     }

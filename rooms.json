@@ -1,7 +1,7 @@
 {
     "entrance": {
       "name": "Entrance Hall",
-      "description": "You are in a grand entrance hall. A door leads north.",
+      "description": "You are in a grand entrance hall. A door leads north.", 
       "exits": {
         "north": "library"
       },
@@ -10,28 +10,55 @@
           "id": "libkey",
           "name": "Shiny Key",
           "description": "A small key with a particular shine",
-          "use": "unlock"
+          "use": "unlock",
+          "weight": 1
         },
         {
           "id": "lantern",
           "name": "Lantern",
           "description": "A lantern with its candle barely a-flame",
-          "use": "unlock"
+          "use": "unlock",
+          "weight": 5
         }
       ]
     },
     "library": {
       "name": "Library",
-      "description": "Books line the walls. It's quiet.",
+      "description": "Books line the walls. It's quiet... A door leads south. A door lined with silver stands tall westward.",
       "exits": {
-        "south": "entrance"
+        "south": "entrance",
+        "west": "chamber"
       },
       "items": [
         {
           "id": "dusty book",
           "name": "Dusty Book",
-          "description": "A book littered with dustballs and cobwebs.",
-          "use": "read"
+          "description": "A book littered with dustballs and cobwebs",
+          "use": "read",
+          "weight": 2
+        }
+      ]
+    },
+    "chamber": {
+      "name": "Lavish Chambers",
+      "description": "Marvelous portraits line the walls, all leading to a pristine throne. This seems to be the abode of great royalty.",
+      "exits": {
+        "east": "library"
+      },
+      "items" : [
+        {
+          "id": "gold",
+          "name": "Pile of Gold",
+          "description": "A stack of glimmering gold coins",
+          "use": "money",
+          "weight": 2
+        },
+        {
+          "id": "crown",
+          "name": "Monarch's Crown",
+          "description": "A king's crown, with gold plating and jewels lining the bottom",
+          "use": "x",
+          "weight": 5
         }
       ]
     }

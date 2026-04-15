@@ -30,7 +30,8 @@ public class RoomLoader {
                     String itemName = itemObj.get("name").getAsString();
                     String itemDescription = itemObj.get("description").getAsString();
                     String itemUse = itemObj.get("use").getAsString();
-                    items.add(new Item(itemId, itemName, itemDescription, itemUse));
+                    int itemWeight = itemObj.get("weight").getAsInt();
+                    items.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
                 }
 
                 Room room = new Room(roomId, name, description, exits, items);

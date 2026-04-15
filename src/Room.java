@@ -64,13 +64,7 @@ public class Room {
             // Remove trailing comma and space
             sb.setLength(sb.length() - 2);
             sb.append(".\n");
-        }
-
-        if (!exits.isEmpty()) {
-            sb.append("Exits: ");
-            for (String direction : exits.keySet()) {
-                sb.append(direction).append(", ");
-            }
+        
             sb.setLength(sb.length() - 2);
             sb.append(".");
         }
