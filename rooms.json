@@ -7,9 +7,16 @@
       },
       "items": [
         {
-          "id": "shiny key",
+          "id": "libkey",
           "name": "Shiny Key",
-          "description": "A small key with a particular shine"
+          "description": "A small key with a particular shine",
+          "use": "unlock"
+        },
+        {
+          "id": "lantern",
+          "name": "Lantern",
+          "description": "A lantern with its candle barely a-flame",
+          "use": "unlock"
         }
       ]
     },
@@ -23,7 +30,8 @@
         {
           "id": "dusty book",
           "name": "Dusty Book",
-          "description": "A book littered with dustballs and cobwebs."
+          "description": "A book littered with dustballs and cobwebs.",
+          "use": "read"
         }
       ]
     }

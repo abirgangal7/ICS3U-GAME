@@ -46,13 +46,20 @@ public class Room {
 
     public String getLongDescription() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n").append(name).append("\n");
+        sb.append(name).append("\n");
         sb.append(description).append("\n");
 
         if (!items.isEmpty()) {
             sb.append("You see ");
             for (Item item : items) {
-                sb.append(item.getDescription().toLowerCase()).append(", ");
+                if (items.size() == 1) {
+                    sb.append(item.getDescription().toLowerCase()).append(", ");
+                } else if (item == items.get(items.size() - 2)) {
+                    sb.append(item.getDescription().toLowerCase()).append(", and ");
+                } else {
+                    sb.append(item.getDescription().toLowerCase()).append(", ");
+                    
+                }
             }
             // Remove trailing comma and space
             sb.setLength(sb.length() - 2);
@@ -65,7 +72,7 @@ public class Room {
                 sb.append(direction).append(", ");
             }
             sb.setLength(sb.length() - 2);
-            sb.append(".\n");
+            sb.append(".");
         }
 
         return sb.toString();

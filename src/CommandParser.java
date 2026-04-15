@@ -89,6 +89,41 @@ public class CommandParser {
                     }
                 }
                 break;
+            case "use":
+                String itemName = Arrays.stream(words).skip(1).collect(Collectors.joining());
+                Item itemToUse = null;
+                for (Item item : player.getInventory()) {
+                    if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
+                        itemToUse = item;
+                        break;
+                    }
+                }
+
+                if (itemToUse != null) {
+                    String use = itemToUse.getUse();
+                    
+                    switch (use) {
+                        case "light":
+                            player.addTag("light");
+                            System.out.println("Your " + itemName + "makes the area brighter.");
+                            break;
+                        case "farm":
+                            System.out.println("to be implemented");
+                            break;
+                        case "unlock":
+                            String itemID = itemToUse.getId();
+                            String roomToUnlock = itemID.substring(0, itemID.indexOf("k"));
+                            
+                            System.out.println("To be implemented");
+                            break;
+                        default:
+                            System.out.println("This item has no use.");
+                            break;
+                    }
+                } else {
+                    System.out.println("You don't have a " + itemName + ".");
+                }
+                break;
             case "help":
                 System.out.println("Available commands: go [direction], look, take [item], drop [item], inventory, help");
                 break;

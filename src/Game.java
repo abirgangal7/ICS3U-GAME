@@ -9,7 +9,7 @@ public class Game {
     public Game() {
         RoomLoader roomLoader = new RoomLoader();
         rooms = roomLoader.loadRooms("rooms.json");
-        player = new Player("entrance");
+        player = new Player("library");
         commandParser = new CommandParser();
     }
 
@@ -21,7 +21,7 @@ public class Game {
 
         while (true) {
             
-            System.out.print("> ");
+            System.out.print("\n> ");
             String input = scanner.nextLine();
             commandParser.parse(input, player, rooms);
         }
