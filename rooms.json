@@ -1,57 +1,61 @@
 {
-    "entrance": {
+    "starting room": {
       "name": "Entrance Hall",
-      "description": "You are in a grand entrance hall. A door leads north.", 
+      "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, gilded lock to your west. A single torch on the wall illuminates your path to the north.", 
       "exits": {
-        "north": "library"
+        "north": "corridor",
+        "west": "final room"
+      },
+      "lockedExits": {
+        "west": "final key"
       },
       "items": [
         {
-          "id": "libkey",
-          "name": "Crested Key",
-          "description": "A small key with an old monarch's crest engraved in it",
+          "id": "sword",
+          "name": "Sword Of The Fallen Hero",
+          "description": "A dull, seemingly ordinary shortsword",
           "use": "unlock",
-          "weight": 1
+          "weight": 3
         },
         {
-          "id": "lantern",
-          "name": "Lantern",
-          "description": "A lantern with its candle barely a-flame",
-          "use": "light",
-          "weight": 5
+          "id": "feather",
+          "name": "Heavy Feather",
+          "description": "A regular feather",
+          "use": "idk",
+          "weight": 60
         }
       ],
       "tags": []
     },
 
-    "library": {
-      "name": "Library",
-      "description": "Books line the walls. It's quiet... A door leads south. A door lined with silver stands tall westward. Eastward, a long narrow hallway lies.",
+    "corridor": {
+      "name": "Dark Scary Corridor",
+      "description": "A torch is mounted on the wall to your right. A large room awaits you to the north.",
       "exits": {
-        "south": "entrance",
-        "west": "chamber",
-        "east": "hallway"
+        "north": "octogon",
+        "south": "starting room"
       },
-      "lockedExits": {
-        "west": "libkey"
-      },
+      
       "items": [
         {
-          "id": "dusty book",
-          "name": "Dusty Book",
-          "description": "A book littered with dustballs and cobwebs",
-          "use": "read",
+          "id": "torch",
+          "name": "Torch",
+          "description": "A stone-shafted torch with a baby flame at the tip",
+          "use": "light",
           "weight": 2
         }
       ],
-      "tags": ["light"]
+      "tags": []
     },
 
-    "chamber": {
-      "name": "Lavish Chambers",
-      "description": "Marvelous portraits line the walls, all leading to a pristine throne. This seems to be the abode of great royalty.",
+    "octogon": {
+      "name": "Octogon",
+      "description": "A large octogonal-shaped chamber. To the north is a gated pathway.",
       "exits": {
-        "east": "library"
+        "north": "locked gate"
+      },
+      "lockedExits":{
+        "north": "gate key"
       },
       "items" : [
         {
