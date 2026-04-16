@@ -110,6 +110,10 @@ public class CommandParser {
                         Room room = rooms.get(player.getCurrentRoomId());
                         room.addItem(itemToDrop);
                         System.out.println("You drop the " + itemToDrop.getName() + ".");
+                        if (itemToDrop.getUse().equalsIgnoreCase("light") && player.getTags().contains("light")) {
+                            player.removeTag("light");
+                            System.out.println("The area around you gets darker...");
+                        }
                     } else {
                         System.out.println("You don't have a " + itemName + ".");
                     }

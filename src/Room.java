@@ -84,7 +84,18 @@ public class Room {
 
             return sb.toString();
         } else {
-            return "\nThe room is too dark to see in, perhaps you should find a light...";
+            StringBuilder sb = new StringBuilder();
+            sb.append("\nThe room is too dark to see in, perhaps you should find a light... ");
+            if (!items.isEmpty()) {
+                for (Item item: items) {
+                    if (item.getUse().equalsIgnoreCase("light")) {
+                        sb.append("A " + item.getName().toLowerCase() + " stands out in the dark");
+                    }
+                }
+                sb.append(".");
+            }
+
+            return sb.toString();
         }
     }
 }

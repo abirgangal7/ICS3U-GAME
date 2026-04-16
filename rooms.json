@@ -8,8 +8,8 @@
       "items": [
         {
           "id": "libkey",
-          "name": "Shiny Key",
-          "description": "A small key with a particular shine",
+          "name": "Crested Key",
+          "description": "A small key with an old monarch's crest engraved in it",
           "use": "unlock",
           "weight": 1
         },
@@ -26,10 +26,11 @@
 
     "library": {
       "name": "Library",
-      "description": "Books line the walls. It's quiet... A door leads south. A door lined with silver stands tall westward.",
+      "description": "Books line the walls. It's quiet... A door leads south. A door lined with silver stands tall westward. Eastward, a long narrow hallway lies.",
       "exits": {
         "south": "entrance",
-        "west": "chamber"
+        "west": "chamber",
+        "east": "hallway"
       },
       "lockedExits": {
         "west": "libkey"
@@ -66,6 +67,35 @@
           "description": "A king's crown, with gold plating and jewels lining the bottom",
           "use": "x",
           "weight": 5
+        }
+      ],
+      "tags": []
+    },
+
+    "hallway": {
+      "name": "Hallway",
+      "description": "A narrow hallway with a room to the north and west.",
+      "exits": {
+        "west": "library",
+        "north": "cellar"
+      },
+      "items": [],
+      "tags": []
+    },
+
+    "cellar": {
+      "name": "Wine Cellar",
+      "description": "Barrels of wine line the walls, the sweet aroma of finely aged wine fills the air.",
+      "exits": {
+        "south": "hallway"
+      },
+      "items": [
+        {
+          "id": "barrel",
+          "name": "Empty barrel",
+          "description": "A heavy, empty barrel",
+          "use": "x",
+          "weight": 50
         }
       ],
       "tags": []
