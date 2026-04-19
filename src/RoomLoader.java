@@ -39,7 +39,12 @@ public class RoomLoader {
                     String itemDescription = itemObj.get("description").getAsString();
                     String itemUse = itemObj.get("use").getAsString();
                     int itemWeight = itemObj.get("weight").getAsInt();
-                    items.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
+                    if (itemUse.equalsIgnoreCase("weapon")) {
+                        int itemDmg = itemObj.get("dmg").getAsInt();
+                        items.add(new Weapon(itemId, itemName, itemDescription, itemUse, itemWeight, itemDmg));
+                    } else {
+                        items.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
+                    }
                 }
 
                 List<String> tags = new ArrayList<>();
@@ -49,7 +54,29 @@ public class RoomLoader {
                     tags.add(tag);
                 }
 
-                Room room = new Room(roomId, name, description, exits, lockedExits, items, tags);
+                List<Monster> monsters = new ArrayList<>();
+                JsonArray monsterJson = roomData.getAsJsonArray("monsters");
+                for (JsonElement monsterElement : monsterJson) {
+                    JsonObject monsterObj = monsterElement.getAsJsonObject();
+                    String monsterName = monsterObj.get("name").getAsString();
+                    String monsterDesc = monsterObj.get("description").getAsString();
+                    int hp = monsterObj.get("hp").getAsInt();
+                    int dmg = monsterObj.get("dmg").getAsInt();
+                    List<Item> inventory = new ArrayList<>();
+                    JsonArray invJson = monsterObj.getAsJsonArray("inventory");
+                    for (JsonElement monsterItem : invJson) {
+                        JsonObject itemObj = monsterItem.getAsJsonObject();
+                        String itemId = itemObj.get("id").getAsString();
+                        String itemName = itemObj.get("name").getAsString();
+                        String itemDescription = itemObj.get("description").getAsString();
+                        String itemUse = itemObj.get("use").getAsString();
+                        int itemWeight = itemObj.get("weight").getAsInt();
+                        inventory.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
+                    }
+                    monsters.add(new Monster(monsterName, monsterDesc, hp, dmg, inventory));
+                }
+
+                Room room = new Room(roomId, name, description, exits, lockedExits, items, tags, monsters);
                 rooms.put(roomId, room);
             }
         } catch (Exception e) {

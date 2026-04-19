@@ -1,23 +1,25 @@
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class CommandParser {
-    public void parse(String input, Player player, Map<String, Room> rooms) {
+    public void parse(String input, Player player, Map<String, Room> rooms, Scanner scanner) {
         String[] words = input.trim().toLowerCase().split("\\s+");
         if (words.length == 0) {
             System.out.println("Please enter a command.");
             return;
         }
-
-        String command = words[0];
+        Room currentRoom = rooms.get(player.getCurrentRoomId());
+        String command = words[0].toLowerCase();
 
         switch (command) {
             case "go":
                 if (words.length < 2) {
                     System.out.println("Go where?");
                 } else if (words[1].toLowerCase().equalsIgnoreCase("back")) {
-                    Room currentRoom = rooms.get(player.getCurrentRoomId());
                     if (player.getPrevRoomId() != player.getCurrentRoomId()) {
                         String temp = player.getCurrentRoomId();
                         player.setCurrentRoomId(player.getPrevRoomId());
@@ -29,7 +31,6 @@ public class CommandParser {
                     }
                 } else {
                     String direction = words[1];
-                    Room currentRoom = rooms.get(player.getCurrentRoomId());
                     String nextRoomId = currentRoom.getExits().get(direction);
 
                     if (nextRoomId != null) {
@@ -49,7 +50,7 @@ public class CommandParser {
                 break;
             
             case "look":
-                Room currentRoom = rooms.get(player.getCurrentRoomId());
+                currentRoom = rooms.get(player.getCurrentRoomId());
                 System.out.println(currentRoom.getLongDescription(player));
                 break;
             
@@ -59,7 +60,12 @@ public class CommandParser {
                 } else {
                     System.out.println("You are carrying:");
                     for (Item item : player.getInventory()) {
-                        System.out.println("- " + item.getName() + "    " + item.getWeight() + " lb(s))");
+                        if (item instanceof Weapon w) {
+                            System.out.println("- " + w.getName() + " (" + w.getDmg() + " dmg)    " + w.getWeight() + " lb(s)");
+                        } else {
+                            System.out.println("- " + item.getName() + "    " + item.getWeight() + " lb(s)");
+                        }
+
                     }
                     System.out.println(player.getCarry() + "/" + player.getCarry_cap() + " lbs");
                 }
@@ -69,10 +75,10 @@ public class CommandParser {
                 if (words.length < 2) {
                     System.out.println("Take what?");
                 } else {
-                    String itemName = Arrays.stream(words).skip(1).collect(Collectors.joining());
-                    Room room = rooms.get(player.getCurrentRoomId());
+                    String itemName = words[1];
+                    currentRoom = rooms.get(player.getCurrentRoomId());
                     Item itemToTake = null;
-                    for (Item item : room.getItems()) {
+                    for (Item item : currentRoom.getItems()) {
                         if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
                             itemToTake = item;
                             break;
@@ -81,11 +87,21 @@ public class CommandParser {
                     
                     if (itemToTake != null) {
                         if (player.getCarry() + itemToTake.getWeight() <= player.getCarry_cap()) {
-                            room.removeItem(itemToTake);
-                            player.addItem(itemToTake);
-                            System.out.println("You take the " + itemToTake.getName() + ".");
+                            if (itemToTake.getName().toLowerCase().contains("feather")) {
+                                currentRoom.removeItem(itemToTake);
+                                player.addItem(itemToTake);
+                                System.out.println("You struggle greatly to lift this feather, it seems you can't hold anything else...");
+                            } else {
+                                currentRoom.removeItem(itemToTake);
+                                player.addItem(itemToTake);
+                                System.out.println("You take the " + itemToTake.getName() + ".");
+                            }
                         } else {
-                            System.out.println("You are carrying too much, drop something first.");
+                            if (itemToTake.getName().toLowerCase().contains("feather")) {
+                                System.out.println("It's a really heavy feather, perhaps you should drop a few things first.");
+                            } else {
+                                System.out.println("You are carrying too much, drop something first.");
+                            }
                         }
                     } else {
                         System.out.println("There is no " + itemName + " here.");
@@ -107,8 +123,7 @@ public class CommandParser {
                     }
                     if (itemToDrop != null) {
                         player.removeItem(itemToDrop);
-                        Room room = rooms.get(player.getCurrentRoomId());
-                        room.addItem(itemToDrop);
+                        currentRoom.addItem(itemToDrop);
                         System.out.println("You drop the " + itemToDrop.getName() + ".");
                         if (itemToDrop.getUse().equalsIgnoreCase("light") && player.getTags().contains("light")) {
                             player.removeTag("light");
@@ -142,19 +157,19 @@ public class CommandParser {
                                 System.out.println("Your " + itemName + " makes the area brighter.");
                                 break;
                             case "unlock":
-                                Room curRoom = rooms.get(player.getCurrentRoomId());    
+ 
                                 String itemID = itemToUse.getId();
                                 
                                 String directionToUnlock = null;
-                                for (String dir : curRoom.getExits().keySet()) {
-                                    if (curRoom.isExitLocked(dir) && itemID.equalsIgnoreCase(curRoom.getRequiredKeyId(dir))) {
+                                for (String dir : currentRoom.getExits().keySet()) {
+                                    if (currentRoom.isExitLocked(dir) && itemID.equalsIgnoreCase(currentRoom.getRequiredKeyId(dir))) {
                                         directionToUnlock = dir;
                                         break;
                                     }
                                 }
                                 
                                 if (directionToUnlock != null) {
-                                    curRoom.unlockExit(directionToUnlock);
+                                    currentRoom.unlockExit(directionToUnlock);
                                     System.out.println("You twist the key and hear a click. The way " + directionToUnlock + " is now open.");
                                 } else {
                                     System.out.println("The key doesn't seem to fit.");
@@ -171,10 +186,148 @@ public class CommandParser {
                 }
                 break;
 
+            case "kill", "attack":
+                if (words.length < 2) {
+                    System.out.println("Kill what?");
+                } else {
+                    String cmd = words[1];
+
+                    if (cmd.equalsIgnoreCase("myself")) {
+                        String itemName = null;    
+
+                        for (Item item : player.getInventory()) {
+                            if (item instanceof Weapon w) {
+                                itemName = w.getName();
+                                break;
+                            }
+                        }
+
+                        if (itemName != null) {
+                            System.out.println("Questionable decision, but okay...\n\nYou kill yourself with "+ itemName);
+                            player.take_dmg(player.getHp());
+                            player.die();
+                        } else {
+                            System.out.println("You don't have anything to kill yourself with");
+                        }
+                    } else {
+                        List<Monster> monsters = currentRoom.getMonsters();
+                        Monster monsterToAtk = null;
+                        int dmg = player.getDmg();
+                        
+                        for (Monster monster : monsters) {
+                            if (monster.getName().toLowerCase().contains(cmd)) {
+                                monsterToAtk = monster;
+                                break;
+                            }
+                        }
+
+                        if (monsterToAtk != null) {
+                            List<Weapon> weapons = new ArrayList<>();
+
+                            for (Item item : player.getInventory()) {
+                                if (item instanceof Weapon w) {
+                                    weapons.add(w);
+                                }
+                            }
+
+                            Weapon weaponToUse = null;
+
+                            if (weapons.size() != 0) {
+
+                                System.out.println("Available weapons:");
+                                for (Weapon w : weapons) {
+                                    System.out.println("- " + w.getName() + " (" + w.getDmg() + " dmg)");
+                                }
+                                boolean done = false;
+                                while (!done) {
+                                    System.out.print("What weapon do you want to use?\n\n> ");
+                                    String weaponName = scanner.nextLine();
+
+                                    for (Weapon weapon : weapons) {
+                                        if (weapon.getName().toLowerCase().contains(weaponName)) {
+                                            weaponToUse = weapon;
+                                            done = true;
+                                        } else {
+                                            System.out.println("Pick a valid option");
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (weaponToUse != null) {
+                                dmg = weaponToUse.getDmg();
+                            }
+
+                            try {
+                                String monsterName = monsterToAtk.getName();
+                                System.out.println("You attack the " + monsterName);
+                                // System.out.println("You swing your " + weaponToUse.getName() + " and strike the " + monsterName + "!");
+                                monsterToAtk.take_dmg(dmg);
+                                monsterToAtk.die(currentRoom);
+
+                                boolean fighting = true;
+                                while (fighting && currentRoom.getMonsters().contains(monsterToAtk)) {
+                                    System.out.println("\nThe " + monsterName + " attacks...");
+                                    Thread.sleep(2000);
+                                    if (player.take_dmg(monsterToAtk.getDMG()).equals("hit")) {
+                                        System.out.println("The " + monsterName + " strikes you!\n");
+                                        player.die();
+                                        if (!player.isAlive()) {
+                                            break;
+                                        }
+                                    } else {
+                                        System.out.println("The " + monsterName + " tries to strike you, but you evade!\n");
+                                    }
+                                    
+                                    Thread.sleep(2000);
+                                    System.out.println(player.getHp() + " " + monsterToAtk.getHP());
+                                    System.out.print("Flee or attack?\n\n> ");
+                                    String choice = scanner.nextLine();
+
+                                    if (choice.equalsIgnoreCase("flee")) {
+                                        System.out.println("You run...");
+                                        Thread.sleep(2000);
+                                        String temp = player.getCurrentRoomId();
+                                        player.setCurrentRoomId(player.getPrevRoomId());
+                                        player.setPrevRoomId(temp);
+                                        currentRoom = rooms.get(player.getCurrentRoomId());
+                                        System.out.println(currentRoom.getLongDescription(player));
+                                        break;
+                                    } else if (choice.equalsIgnoreCase("attack")) {
+                                        System.out.println("You attack again!");
+                                        Thread.sleep(2000);
+                                        if (weaponToUse != null) {
+                                            System.out.println("You swing your " + weaponToUse.getName() + " and strike the " + monsterName + "!");
+                                        } else {
+                                            System.out.println("You punch the " + monsterName + "!");
+                                        }
+                                        monsterToAtk.take_dmg(dmg);
+                                        monsterToAtk.die(currentRoom);
+                                    } else {
+                                        System.out.println("Guess I'll make you attack again...");
+                                        System.out.println("You attack hesitantly...");
+                                        monsterToAtk.take_dmg(dmg);
+                                        monsterToAtk.die(currentRoom);
+                                    }
+                                }
+                            } catch (Exception e) {
+                                Thread.currentThread().interrupt();
+                            }
+                            
+
+                            
+                        } else {
+                            System.out.println("There is no " + cmd + " here");
+                        }
+                    }
+                }
+                break;
+            
             case "help":
                 System.out.println("Available commands: look, go [direction], take [item], drop [item], use [item], inventory, help");
                 break;
-            default:
+            
+                default:
                 System.out.println("I don't understand that command.");
                 break;
         }

@@ -10,8 +10,10 @@ public class Room {
     private Map<String, String> lockedExits;
     private List<Item> items;
     private List<String> tags;
+    private List<Monster> monsters;
 
-    public Room(String id, String name, String description, Map<String, String> exits, Map<String, String> lockedExits, List<Item> items, List<String> tags) {
+    public Room(String id, String name, String description, Map<String, String> exits, 
+        Map<String, String> lockedExits, List<Item> items, List<String> tags, List<Monster> monsters) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -19,6 +21,7 @@ public class Room {
         this.lockedExits = lockedExits != null ? lockedExits : new HashMap<>();
         this.items = items;
         this.tags = tags;
+        this.monsters = monsters;
     }
 
     public String getId() {
@@ -61,6 +64,14 @@ public class Room {
         items.add(item);
     }
 
+    public List<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public void removeMonster(Monster monster) {
+        monsters.remove(monster);
+    }
+
     public String getLongDescription(Player player) {
         if ((tags.contains("light") && player.getTags().contains("light")) || !tags.contains("light")) {
             StringBuilder sb = new StringBuilder();
@@ -80,6 +91,19 @@ public class Room {
                 }
                 sb.setLength(sb.length() - 2);
                 sb.append(".");
+            }
+
+            if (!monsters.isEmpty()) {
+                sb.append("\n").append("You see ");
+                for (Monster monster : monsters) {
+                    if (monsters.size() == 1) {
+                        sb.append(monster.getDescription().toLowerCase()).append(", ");
+                    } else if (monster == monsters.get(monsters.size() - 2)) {
+                        sb.append(monster.getDescription().toLowerCase()).append(", and ");
+                    } else {
+                        sb.append(monster.getDescription().toLowerCase()).append(", ");
+                    }
+                }
             }
 
             return sb.toString();

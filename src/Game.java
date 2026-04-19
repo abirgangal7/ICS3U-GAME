@@ -9,7 +9,7 @@ public class Game {
     public Game() {
         RoomLoader roomLoader = new RoomLoader();
         rooms = roomLoader.loadRooms("rooms.json");
-        player = new Player("entrance");
+        player = new Player("startingRoom");
         commandParser = new CommandParser();
     }
 
@@ -20,11 +20,15 @@ public class Game {
         Room currentRoom = rooms.get(player.getCurrentRoomId());
         System.out.println(currentRoom.getLongDescription(player));
 
-        while (true) {
-            
+        while (player.isAlive()) {
             System.out.print("\n> ");
             String input = scanner.nextLine();
-            commandParser.parse(input, player, rooms);
+            commandParser.parse(input, player, rooms, scanner);
         }
+
+        System.out.println("**** You have died ****");
+        System.out.println("Score: " + player.getScore());
+
+        scanner.close();
     }
 }

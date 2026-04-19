@@ -6,6 +6,10 @@ public class Player {
     private String prevRoomId;
     private int carry;
     private int carry_cap;
+    private int dmg;
+    private int hp;
+    private int score;
+    private boolean alive;
     private List<Item> inventory;
     private List<String> tags;
 
@@ -14,6 +18,10 @@ public class Player {
         this.prevRoomId = startingRoomId;
         this.carry = 0;
         this.carry_cap = 60;
+        this.dmg = 1;
+        this.hp = 20;
+        this.score = 0;
+        this.alive = true;
         this.inventory = new ArrayList<>();
         this.tags = new ArrayList<>();
     }
@@ -40,6 +48,37 @@ public class Player {
 
     public int getCarry_cap() {
         return carry_cap;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getDmg() {
+        return dmg;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public String take_dmg(int dmg) {
+        double dodge = Math.random();
+        if (dodge < 0.8) {
+            hp -= dmg;
+            return "hit";
+        } else {
+            return "dodge";
+        }
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void die() {
+        if (hp <= 0)
+            alive = false;
     }
 
     public void addItem(Item item) {

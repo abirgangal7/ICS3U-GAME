@@ -1,39 +1,41 @@
 {
-    "starting room": {
+    "startingRoom": {
       "name": "Entrance Hall",
-      "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, gilded lock to your west. A single torch on the wall illuminates your path to the north.", 
+      "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, gilded lock to your west. A long corridor is northward.", 
       "exits": {
         "north": "corridor",
-        "west": "final room"
+        "west": "finalRoom"
       },
       "lockedExits": {
-        "west": "final key"
+        "west": "finkey"
       },
       "items": [
         {
           "id": "sword",
           "name": "Sword Of The Fallen Hero",
           "description": "A dull, seemingly ordinary shortsword",
-          "use": "unlock",
-          "weight": 3
+          "use": "weapon",
+          "weight": 3,
+          "dmg": 5
         },
         {
           "id": "feather",
-          "name": "Heavy Feather",
+          "name": "Tungsten Feather",
           "description": "A regular feather",
           "use": "idk",
           "weight": 60
         }
       ],
-      "tags": []
+      "tags": [],
+      "monsters": []
     },
 
     "corridor": {
-      "name": "Dark Scary Corridor",
-      "description": "A torch is mounted on the wall to your right. A large room awaits you to the north.",
+      "name": "Long Corridor",
+      "description": "A long, straight corridor. A large room awaits you to the north.",
       "exits": {
         "north": "octogon",
-        "south": "starting room"
+        "south": "startingRoom"
       },
       
       "items": [
@@ -45,14 +47,16 @@
           "weight": 2
         }
       ],
-      "tags": []
+      "tags": [],
+      "monsters": []
     },
 
     "octogon": {
       "name": "Octogon",
-      "description": "A large octogonal-shaped chamber. To the north is a gated pathway.",
+      "description": "A large octogonal-shaped chamber. To the north is a gated pathway",
       "exits": {
-        "north": "locked gate"
+        "north": "locked gate",
+        "south": "corridor"
       },
       "lockedExits":{
         "north": "gate key"
@@ -73,35 +77,24 @@
           "weight": 5
         }
       ],
-      "tags": []
-    },
-
-    "hallway": {
-      "name": "Hallway",
-      "description": "A narrow hallway with a room to the north and west.",
-      "exits": {
-        "west": "library",
-        "north": "cellar"
-      },
-      "items": [],
-      "tags": []
-    },
-
-    "cellar": {
-      "name": "Wine Cellar",
-      "description": "Barrels of wine line the walls, the sweet aroma of finely aged wine fills the air.",
-      "exits": {
-        "south": "hallway"
-      },
-      "items": [
+      "tags": ["light"],
+      "monsters": [
         {
-          "id": "barrel",
-          "name": "Empty barrel",
-          "description": "A heavy, empty barrel",
-          "use": "x",
-          "weight": 50
+          "name": "Troll",
+          "description": "A troll stands guarding the treasure",
+          "hp": 20,
+          "dmg": 5,
+          "inventory": [
+            {
+              "id": "axe",
+              "name": "Axe",
+              "description": "An axe",
+              "use": "weapon",
+              "weight": 10,
+              "dmg": 10
+            }
+          ]
         }
-      ],
-      "tags": []
+      ]
     }
   }
