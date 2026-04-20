@@ -64,8 +64,15 @@ public class Player {
 
     public String take_dmg(int dmg) {
         double dodge = Math.random();
+        
         if (dodge < 0.8) {
             hp -= dmg;
+            for (Item item : inventory) {
+                if (item instanceof Weapon w) {
+                    if (w.getName().toLowerCase().contains("shield"))
+                        hp += (int) dmg / 2;
+                }
+            }
             return "hit";
         } else {
             return "dodge";

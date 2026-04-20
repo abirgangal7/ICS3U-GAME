@@ -18,7 +18,40 @@ public class CommandParser {
         switch (command) {
             case "go":
                 if (words.length < 2) {
-                    System.out.println("Go where?");
+                    System.out.print("Go where?\n\n> ");
+                    String[] in = scanner.nextLine().toLowerCase().split("\\s+");
+                    String nextRoomId = currentRoom.getExits().get(in[0]);
+                    String direction = in[0];
+
+                    if (in[0].equalsIgnoreCase("go")) {
+                        direction = in[1];
+                        nextRoomId = currentRoom.getExits().get(direction);
+                    }
+
+                    if (direction.equalsIgnoreCase("back")) {
+                        if (player.getPrevRoomId() != player.getCurrentRoomId()) {
+                            String temp = player.getCurrentRoomId();
+                            player.setCurrentRoomId(player.getPrevRoomId());
+                            player.setPrevRoomId(temp);
+                            currentRoom = rooms.get(player.getCurrentRoomId());
+                            System.out.println(currentRoom.getLongDescription(player));
+                        } else {
+                            System.out.println("You haven't even moved yet...");
+                        }
+                    } else if (nextRoomId != null) {
+                        if (currentRoom.isExitLocked(direction)) {
+                            System.out.println("That way is locked. You'll need a key");
+                        } else {
+                            player.setPrevRoomId(currentRoom.getId());;
+                            player.setCurrentRoomId(nextRoomId);
+                            System.out.println("You move " + direction + ".");
+                            currentRoom = rooms.get(player.getCurrentRoomId());
+                            System.out.println(currentRoom.getLongDescription(player));
+                        }
+                        
+                    } else {
+                        System.out.println("You can't go that way.");
+                    }
                 } else if (words[1].toLowerCase().equalsIgnoreCase("back")) {
                     if (player.getPrevRoomId() != player.getCurrentRoomId()) {
                         String temp = player.getCurrentRoomId();
@@ -48,7 +81,7 @@ public class CommandParser {
                     }
                 }
                 break;
-            
+
             case "look":
                 currentRoom = rooms.get(player.getCurrentRoomId());
                 System.out.println(currentRoom.getLongDescription(player));
@@ -73,10 +106,46 @@ public class CommandParser {
             
             case "take":
                 if (words.length < 2) {
-                    System.out.println("Take what?");
+                    System.out.print("Take what?\n\n> ");
+                    String[] in = scanner.nextLine().toLowerCase().split("\\s+");
+                    Item itemToTake = null;
+                    String itemName = in[0];
+
+                    if (in[0].equalsIgnoreCase("take")) {
+                        itemName = in[1];
+                    }
+
+                    for (Item item : currentRoom.getItems()) {
+                        if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
+                            itemToTake = item;
+                            break;
+                        }
+                    }
+
+                    if (itemToTake != null) {
+                        if (player.getCarry() + itemToTake.getWeight() <= player.getCarry_cap()) {
+                            if (itemToTake.getName().toLowerCase().contains("feather")) {
+                                currentRoom.removeItem(itemToTake);
+                                player.addItem(itemToTake);
+                                System.out.println("You struggle greatly to lift this feather, it seems you can't hold anything else...");
+                            } else {
+                                currentRoom.removeItem(itemToTake);
+                                player.addItem(itemToTake);
+                                System.out.println("You take the " + itemToTake.getName() + ".");
+                            }
+                        } else {
+                            if (itemToTake.getName().toLowerCase().contains("feather")) {
+                                System.out.println("It's a really heavy feather, perhaps you should drop a few things first.");
+                            } else {
+                                System.out.println("You are carrying too much, drop something first.");
+                            }
+                        }
+                    } else {
+                        System.out.println("There is no " + itemName + " here.");
+                    }
+
                 } else {
                     String itemName = words[1];
-                    currentRoom = rooms.get(player.getCurrentRoomId());
                     Item itemToTake = null;
                     for (Item item : currentRoom.getItems()) {
                         if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
@@ -137,7 +206,51 @@ public class CommandParser {
 
             case "use":
                 if (words.length < 2) {
-                    System.out.println("Use what?");
+                    System.out.print("Use what?\n\n> ");
+                    String[] in = scanner.nextLine().trim().toLowerCase().split("\\s+");
+                    String itemName = Arrays.stream(in).skip(0).collect(Collectors.joining());
+                    Item itemToUse = null;
+                    for (Item item : player.getInventory()) {
+                        if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
+                            itemToUse = item;
+                            break;
+                        }
+                    }
+
+                    if (itemToUse != null) {
+                        String use = itemToUse.getUse();
+                        
+                        switch (use) {
+                            case "light":
+                                player.addTag("light");
+                                System.out.println("Your " + itemName + " makes the area brighter.");
+                                break;
+                            case "unlock":
+                                String itemID = itemToUse.getId();
+                                
+                                String directionToUnlock = null;
+                                for (String dir : currentRoom.getExits().keySet()) {
+                                    if (currentRoom.isExitLocked(dir) && itemID.equalsIgnoreCase(currentRoom.getRequiredKeyId(dir))) {
+                                        directionToUnlock = dir;
+                                        break;
+                                    }
+                                }
+                                
+                                if (directionToUnlock != null) {
+                                    currentRoom.unlockExit(directionToUnlock);
+                                    System.out.println("You twist the key and hear a click. The way " + directionToUnlock + " is now open.");
+                                } else {
+                                    System.out.println("The key doesn't seem to fit.");
+                                }
+                                break;
+
+                            default:
+                                System.out.println("This item has no use.");
+                                break;
+                        }
+                    } else {
+                        System.out.println("You don't have a " + itemName + ".");
+                    }
                 } else {
                     String itemName = Arrays.stream(words).skip(1).collect(Collectors.joining());
                     Item itemToUse = null;
@@ -189,6 +302,7 @@ public class CommandParser {
             case "kill", "attack":
                 if (words.length < 2) {
                     System.out.println("Kill what?");
+
                 } else {
                     String cmd = words[1];
 
