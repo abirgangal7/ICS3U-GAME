@@ -34,7 +34,7 @@
       "name": "Long Corridor",
       "description": "A long, straight corridor. A large room awaits you to the north.",
       "exits": {
-        "north": "octogon",
+        "north": "octagon",
         "south": "startingRoom"
       },
       
@@ -51,12 +51,13 @@
       "monsters": []
     },
 
-    "octogon": {
-      "name": "Octogon",
-      "description": "A large octogonal-shaped chamber. To the north is a gated pathway",
+    "octagon": {
+      "name": "Octagon",
+      "description": "A large octagonal-shaped chamber. To the north is a gated pathway",
       "exits": {
         "north": "locked gate",
-        "south": "corridor"
+        "south": "corridor",
+        "west": "control_room"
       },
       "lockedExits":{
         "north": "gate key"
@@ -96,5 +97,151 @@
           ]
         }
       ]
+    },
+    "control_room": {
+      "name": "Control Room",
+      "description": "An unkempt office area, full of useless papers and empty chairs.",
+      "exits": {
+        "east": "octagon",
+        "north": "armory"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "control_filler_1": {
+      "name": "Control Room",
+      "description": "An unkempt office area, full of useless papers and empty chairs. You see a water dispenser further into the office.",
+      "exits": {
+        "west": "control_filler_2",
+        "east": "control_room"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "control_room_2": {
+      "name": "Control Room",
+      "description": "An unkempt office area, full of useless papers and empty chairs. The water dispenser is slightly closer.",
+      "exits": {
+        "east": "control_filler_1",
+        "south": "control_warden",
+        "north": "control_filler_3",
+        "west": "control_filler_4"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "control_room_3": {
+      "name": "Control Room",
+      "description": "A small separated section of the office.",
+      "exits": {
+        "south": "control_filler_2",
+        "west": "control_wires"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "armory": {
+      "name": "Armory",
+      "description": "A stinky room with broken armor pieces scattered across the walls and floors.",
+      "exits": {
+        "south": "control_room",
+        "west": "armory_filler_1",
+        "north": "armory_filler_2"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "armory_filler_1": {
+      "name": "Armory",
+      "description": "A stinky room with broken armor pieces scattered across the walls and floors. You feel slightly closer to discovering the purpose of this room.",
+      "exits": {
+        "east": "armory",
+        "north":"armory_filler_3"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "armory_filler_2": {
+      "name": "Armory",
+      "description": "A stinky room with broken armor pieces scattered across the walls and floors. You feel slightly closer to discovering the purpose of this room.",
+      "exits": {
+        "south": "armory",
+        "west":"armory_filler_3"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "armory_filler_3": {
+      "name": "Armory",
+      "description": "A stinky room with broken armor pieces scattered across the walls and floors. You feel super close to discovering the purpose of this room.",
+      "exits": {
+        "west": "armory_shield",
+        "east": "armory_filler_2",
+        "south":"armory_filler_1"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
+    "armory_shield": {
+      "name": "Armory",
+      "description": "A stinky room with broken armor pieces scattered across the walls and floors. A broken shield lies on the ground in front of you.",
+      "exits": {
+        "east": "armory_filler_3"
+      },
+      
+      "items": [
+        {
+        }
+      ],
+      "tags": [],
+      "monsters": []
     }
   }
