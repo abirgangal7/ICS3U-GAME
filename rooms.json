@@ -53,11 +53,12 @@
 
     "octagon": {
       "name": "Octagon",
-      "description": "A large octagonal-shaped chamber. To the north is a gated pathway",
+      "description": "A large octagonal-shaped chamber. To the north is a gated pathway. You see doorways both west and east.",
       "exits": {
         "north": "locked gate",
         "south": "corridor",
-        "west": "control_room"
+        "west": "control_room",
+        "east": "prison"
       },
       "lockedExits":{
         "north": "gate key"
@@ -100,10 +101,10 @@
     },
 
     "control_room": {
-      "name": "Control Room",
-      "description": "An unkempt office area, full of useless papers and empty chairs.",
+      "name": "Control Room Entrance",
+      "description": "The entrance to an unkempt office area, full of useless papers and empty chairs. There is a hallway to the west, a room entrance to the north, and a large room to the east.",
       "exits": {
-        "west": "control_filler_1",
+        "west": "control_hallway",
         "east": "octagon",
         "north": "armory"
       },
@@ -113,11 +114,11 @@
       "monsters": []
     },
 
-    "control_filler_1": {
-      "name": "Control Room",
-      "description": "An unkempt office area, full of useless papers and empty chairs. You see a water dispenser further into the office.",
+    "control_hallway": {
+      "name": "Control Room Hallway",
+      "description": "A hallway connected to mulitple offices. To your south is an office with an unlocked door. Eastwards leads to the entrance of the control room.",
       "exits": {
-        "west": "control_filler_2",
+        "south": "warden_office",
         "east": "control_room"
       },
       
@@ -126,9 +127,29 @@
       "monsters": []
     },
 
+    "warden_office": {
+      "name": "Warden's Office",
+      "description": "An unkempt office area, full of useless papers and empty chairs. You see a water dispenser further into the office.",
+      "exits": {
+        "north": "control_hallway"
+      },
+      
+      "items": [
+        {
+          "id": "warden_key",
+          "name": "Warden's Key",
+          "description": "A black key with a sleek, fancy design.",
+          "use": "unlock",
+          "weight": 2
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
     "armory": {
       "name": "Armory",
-      "description": "test",
+      "description": "A room with broken armor pieces scattered on the floor.",
       "exits": {
         "south": "control_room"
       },
