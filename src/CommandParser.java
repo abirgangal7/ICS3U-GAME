@@ -1,7 +1,5 @@
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,6 +68,7 @@ public class CommandParser {
                         if (currentRoom.isExitLocked(direction)) {
                             System.out.println("That way is locked. You'll need a key");
                         } else {
+                            
                             player.setPrevRoomId(currentRoom.getId());;
                             player.setCurrentRoomId(nextRoomId);
                             System.out.println("You move " + direction + ".");
@@ -180,9 +179,34 @@ public class CommandParser {
             
             case "drop":
                 if (words.length < 2) {
-                    System.out.println("Drop what?");
+                    System.out.print("Drop what?\n\n> ");
+                    String[] in = scanner.nextLine().trim().toLowerCase().split("\\s+");
+                    String itemName;
+                    if (in[0].equalsIgnoreCase("drop")) {
+                        itemName = in[1];
+                    } else {
+                        itemName = in[0];
+                    }
+                        Item itemToDrop = null;
+                        for (Item item : player.getInventory()) {
+                            if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
+                                itemToDrop = item;
+                                break;
+                            }
+                        }
+                        if (itemToDrop != null) {
+                            player.removeItem(itemToDrop);
+                            currentRoom.addItem(itemToDrop);
+                            System.out.println("You drop the " + itemToDrop.getName() + ".");
+                            if (itemToDrop.getUse().equalsIgnoreCase("light") && player.getTags().contains("light")) {
+                                player.removeTag("light");
+                                System.out.println("The area around you gets darker...");
+                            }
+                        } else {
+                            System.out.println("You don't have a " + itemName + ".");
+                        } 
                 } else {
-                    String itemName = Arrays.stream(words).skip(1).collect(Collectors.joining());
+                    String itemName = words[1];
                     Item itemToDrop = null;
                     for (Item item : player.getInventory()) {
                         if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
@@ -207,8 +231,7 @@ public class CommandParser {
             case "use":
                 if (words.length < 2) {
                     System.out.print("Use what?\n\n> ");
-                    String[] in = scanner.nextLine().trim().toLowerCase().split("\\s+");
-                    String itemName = Arrays.stream(in).skip(0).collect(Collectors.joining());
+                    String itemName = words[1];
                     Item itemToUse = null;
                     for (Item item : player.getInventory()) {
                         if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {
@@ -252,7 +275,7 @@ public class CommandParser {
                         System.out.println("You don't have a " + itemName + ".");
                     }
                 } else {
-                    String itemName = Arrays.stream(words).skip(1).collect(Collectors.joining());
+                    String itemName = words[1];
                     Item itemToUse = null;
                     for (Item item : player.getInventory()) {
                         if (item.getName().toLowerCase().contains(itemName.toLowerCase())) {

@@ -35,11 +35,11 @@ public class Player {
     }
 
     public void setCurrentRoomId(String roomId) {
-        this.currentRoomId = roomId;
+        currentRoomId = roomId;
     }
 
     public void setPrevRoomId(String roomId) {
-        this.prevRoomId = roomId;
+        prevRoomId = roomId;
     }
 
     public int getCarry() {
