@@ -63,22 +63,7 @@
       "lockedExits":{
         "north": "gate key"
       },
-      "items" : [
-        {
-          "id": "gold",
-          "name": "Pile of Gold Coins",
-          "description": "A stack of glimmering gold coins",
-          "use": "money",
-          "weight": 2
-        },
-        {
-          "id": "crown",
-          "name": "Monarch's Crown",
-          "description": "A king's crown, with gold plating and jewels lining the bottom",
-          "use": "x",
-          "weight": 5
-        }
-      ],
+      "items" : [],
       "tags": ["light"],
       "monsters": [
         {
@@ -100,7 +85,7 @@
       ]
     },
 
-    "control_room": {
+    "control_entrance": {
       "name": "Control Room Entrance",
       "description": "The entrance to an unkempt office area, full of useless papers and empty chairs. There is a hallway to the west, a room entrance to the north, and a large room to the east.",
       "exits": {
@@ -119,7 +104,8 @@
       "description": "A hallway connected to mulitple offices. To your south is an office with an unlocked door. Eastwards leads to the entrance of the control room.",
       "exits": {
         "south": "warden_office",
-        "east": "control_room"
+        "east": "control_entrance",
+        "west": "control_room"
       },
       
       "items": [],
@@ -127,9 +113,43 @@
       "monsters": []
     },
 
+    "control_room": {
+      "name": "Control Room",
+      "description": "The entrance to an unkempt office area, full of useless papers and empty chairs. There is a hallway to the west, a room entrance to the north, and a large room to the east.",
+      "exits": {
+        "east": "control_hallway",
+        "north": "electrical_room"
+      },
+
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+
+    "electrical_room": {
+      "name": "Electrical Room",
+      "description": "A disastrous room with broken control panels, uncontrolled distribution boards, and no features to ensure your safety. You see a spare wire on the ground but are unsure whether it is safe to take it.",
+      "exits": {
+        "east": "control_hallway",
+        "north": "electrical_room"
+      },
+
+      "items": [
+        {
+          "id": "wire",
+          "name": "Wire",
+          "description": "A spare wire from the electrical room",
+          "use": "unlock",
+          "weight": 1
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+
     "warden_office": {
       "name": "Warden's Office",
-      "description": "An unkempt office area, full of useless papers and empty chairs. You see a water dispenser further into the office.",
+      "description": "A well-sized office with a polished brown desk and a leather office chair. There is a key on the desk. Northwards leads to the exit of the office.",
       "exits": {
         "north": "control_hallway"
       },
