@@ -83,7 +83,7 @@
       "monsters": [
         {
           "name": "Troll",
-          "description": "A troll stands guarding the treasure",
+          "description": "A troll guarding the treasure",
           "hp": 20,
           "dmg": 5,
           "inventory": [

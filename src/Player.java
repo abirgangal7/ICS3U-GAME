@@ -9,6 +9,7 @@ public class Player {
     private int dmg;
     private int hp;
     private int score;
+    private int money;
     private boolean alive;
     private List<Item> inventory;
     private List<String> tags;
@@ -21,6 +22,7 @@ public class Player {
         this.dmg = 1;
         this.hp = 20;
         this.score = 0;
+        this.money = 0;
         this.alive = true;
         this.inventory = new ArrayList<>();
         this.tags = new ArrayList<>();
@@ -60,6 +62,18 @@ public class Player {
 
     public int getHp() {
         return hp;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void addScore(int amt) {
+        score += amt;
+    }
+
+    public void addMoney(int amt) {
+        money += amt;
     }
 
     public String take_dmg(int dmg) {
