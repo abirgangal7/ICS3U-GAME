@@ -40,7 +40,7 @@ public class Monster {
         hp -= dmg;
     }
 
-    public void die(Room room) {
+    public void die(Room room, Player player) {
         if (hp <= 0) {
             System.out.println("The " + name + " dies");
 
@@ -49,6 +49,9 @@ public class Monster {
             }
 
             room.removeMonster(this);
+
+            player.addScore(20);
+            player.addMoney(2);
         }
     }
 }
