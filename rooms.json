@@ -61,7 +61,7 @@
         "east": "prison"
       },
       "lockedExits":{
-        "north": "gate key"
+        "north": "gate_key"
       },
       "items" : [],
       "tags": ["light"],
@@ -115,7 +115,7 @@
 
     "control_room": {
       "name": "Control Room",
-      "description": "The entrance to an unkempt office area, full of useless papers and empty chairs. There is a hallway to the west, a room entrance to the north, and a large room to the east.",
+      "description": "A security office with CCTV cameras looking into the prison. You have no idea how to decipher the information on the monitors. The hallway you entered through is east, and there is a door to your north.",
       "exits": {
         "east": "control_hallway",
         "north": "electrical_room"
@@ -128,7 +128,7 @@
 
     "electrical_room": {
       "name": "Electrical Room",
-      "description": "A disastrous room with broken control panels, uncontrolled distribution boards, and no features to ensure your safety. You see a spare wire on the ground but are unsure whether it is safe to take it.",
+      "description": "A disastrous room with broken control panels, uncontrolled distribution boards, and no features to ensure your safety.",
       "exits": {
         "east": "control_hallway",
         "north": "electrical_room"
@@ -136,9 +136,9 @@
 
       "items": [
         {
-          "id": "wire",
+          "id": "wire_damage",
           "name": "Wire",
-          "description": "A spare wire from the electrical room",
+          "description": "A spare wire on the ground that looks risky to take without getting electrocuted.",
           "use": "unlock",
           "weight": 1
         }
@@ -171,9 +171,23 @@
       "name": "Armory",
       "description": "A room with broken armor pieces scattered on the floor.",
       "exits": {
-        "south": "control_room"
+        "south": "control_entrance",
+        "north": "locked_armory"
       },
-      
+      "locked exits": {
+        "north": "blacksmith_key"
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+
+    "locked_armory": {
+      "name": "Armory In The Backroom",
+      "description": "A room with broken armor pieces scattered on the floor.",
+      "exits": {
+        "south": "armory"
+      },
       "items": [],
       "tags": [],
       "monsters": []
