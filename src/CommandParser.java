@@ -90,6 +90,7 @@ public class CommandParser {
                 if (player.getInventory().isEmpty()) {
                     System.out.println("Your inventory is empty.");
                 } else {
+                    System.out.println("Hp: " + player.getHp());
                     System.out.println("Score: " + player.getScore());
                     System.out.println("Money: $" + player.getMoney());
                     System.out.println("You are carrying:");
@@ -164,6 +165,10 @@ public class CommandParser {
                                 currentRoom.removeItem(itemToTake);
                                 player.addItem(itemToTake);
                                 System.out.println("You take the " + itemToTake.getName() + ".");
+                                if (itemToTake.getId().toLowerCase().contains("dmg")) {
+                                    player.take_dmg(5, true);
+                                    System.out.println("Seems like this " + itemName + " wasn't safe to pick up...");
+                                }
                             }
                         } else {
                             if (itemToTake.getName().toLowerCase().contains("feather")) {
@@ -302,6 +307,7 @@ public class CommandParser {
                             case "light":
                                 player.addTag("light");
                                 System.out.println("Your " + itemName + " makes the area brighter.");
+                                System.out.println(currentRoom.getLongDescription(player));
                                 break;
                             case "unlock":
                                 String itemID = itemToUse.getId();
@@ -362,7 +368,7 @@ public class CommandParser {
 
                             if (itemName != null) {
                                 System.out.println("Questionable decision, but okay...\n\nYou kill yourself with "+ itemName);
-                                player.take_dmg(player.getHp());
+                                player.take_dmg(player.getHp(), false);
                                 player.die();
                             } else {
                                 System.out.println("You don't have anything to kill yourself with");
@@ -426,7 +432,7 @@ public class CommandParser {
                                     while (fighting && currentRoom.getMonsters().contains(monsterToAtk)) {
                                         System.out.println("\nThe " + monsterName + " attacks...");
                                         Thread.sleep(2000);
-                                        if (player.take_dmg(monsterToAtk.getDMG()).equals("hit")) {
+                                        if (player.take_dmg(monsterToAtk.getDMG(), false).equals("hit")) {
                                             System.out.println("The " + monsterName + " strikes you!\n");
                                             player.die();
                                             if (!player.isAlive()) {
@@ -491,7 +497,7 @@ public class CommandParser {
 
                         if (itemName != null) {
                             System.out.println("Questionable decision, but okay...\n\nYou kill yourself with "+ itemName);
-                            player.take_dmg(player.getHp());
+                            player.take_dmg(player.getHp(), false);
                             player.die();
                         } else {
                             System.out.println("You don't have anything to kill yourself with");
@@ -555,7 +561,7 @@ public class CommandParser {
                                 while (fighting && currentRoom.getMonsters().contains(monsterToAtk)) {
                                     System.out.println("\nThe " + monsterName + " attacks...");
                                     Thread.sleep(2000);
-                                    if (player.take_dmg(monsterToAtk.getDMG()).equals("hit")) {
+                                    if (player.take_dmg(monsterToAtk.getDMG(), false).equals("hit")) {
                                         System.out.println("The " + monsterName + " strikes you!\n");
                                         player.die();
                                         if (!player.isAlive()) {

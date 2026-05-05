@@ -136,7 +136,7 @@
 
       "items": [
         {
-          "id": "wire",
+          "id": "wiredmg",
           "name": "Wire",
           "description": "A spare wire from the electrical room",
           "use": "unlock",
