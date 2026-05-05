@@ -32,7 +32,7 @@
 
     "corridor": {
       "name": "Long Corridor",
-      "description": "A long, straight corridor. A large room awaits you to the north.",
+      "description": "A long, straight corridor. A large room awaits you to the north. The entrance room is to the south.",
       "exits": {
         "north": "octagon",
         "south": "startingRoom"
@@ -57,14 +57,14 @@
       "exits": {
         "north": "locked gate",
         "south": "corridor",
-        "west": "control_room",
+        "west": "control_entrance",
         "east": "prison"
       },
       "lockedExits":{
-        "north": "gate key"
+        "north": "gate_key"
       },
       "items" : [],
-      "tags": ["light"],
+      "tags": [],
       "monsters": [
         {
           "name": "Troll",
@@ -115,7 +115,7 @@
 
     "control_room": {
       "name": "Control Room",
-      "description": "The entrance to an unkempt office area, full of useless papers and empty chairs. There is a hallway to the west, a room entrance to the north, and a large room to the east.",
+      "description": "A security office with CCTV cameras looking into the prison. You have no idea how to decipher the information on the monitors. The hallway you entered through is east, and there is a door to your north.",
       "exits": {
         "east": "control_hallway",
         "north": "electrical_room"
@@ -128,17 +128,16 @@
 
     "electrical_room": {
       "name": "Electrical Room",
-      "description": "A disastrous room with broken control panels, uncontrolled distribution boards, and no features to ensure your safety. You see a spare wire on the ground but are unsure whether it is safe to take it.",
+      "description": "A disastrous room with broken control panels, uncontrolled distribution boards, and no features to ensure your safety.",
       "exits": {
-        "east": "control_hallway",
-        "north": "electrical_room"
+        "south": "control_room"
       },
 
       "items": [
         {
-          "id": "wiredmg",
+          "id": "wire",
           "name": "Wire",
-          "description": "A spare wire from the electrical room",
+          "description": "A spare wire on the ground that looks risky to take without getting electrocuted",
           "use": "unlock",
           "weight": 1
         }
@@ -149,7 +148,7 @@
 
     "warden_office": {
       "name": "Warden's Office",
-      "description": "A well-sized office with a polished brown desk and a leather office chair. There is a key on the desk. Northwards leads to the exit of the office.",
+      "description": "A well-sized office with a polished brown desk and a leather office chair. Northwards leads to the exit of the office.",
       "exits": {
         "north": "control_hallway"
       },
@@ -158,7 +157,7 @@
         {
           "id": "warden_key",
           "name": "Warden's Key",
-          "description": "A black key with a sleek, fancy design.",
+          "description": "A black key with a sleek, fancy design",
           "use": "unlock",
           "weight": 2
         }
@@ -169,13 +168,27 @@
 
     "armory": {
       "name": "Armory",
-      "description": "A room with broken armor pieces scattered on the floor.",
+      "description": "A trashed room with broken weapons scattered across the floor. There is a locked door to your north.",
       "exits": {
-        "south": "control_room"
+        "south": "control_entrance",
+        "north": "locked_armory"
       },
-      
+      "locked exits": {
+        "north": "blacksmith_key"
+      },
       "items": [],
-      "tags": [],
+      "tags": ["light"],
+      "monsters": []
+    },
+
+    "locked_armory": {
+      "name": "The Forge",
+      "description": "A spacious room with a hard-working gnome called Gerald. He seems to have been trapped here for decades forging weapons.  ",
+      "exits": {
+        "south": "armory"
+      },
+      "items": [],
+      "tags": ["light"],
       "monsters": []
     }
 
