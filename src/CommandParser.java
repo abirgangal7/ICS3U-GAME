@@ -14,7 +14,7 @@ public class CommandParser {
         String command = words[0].toLowerCase();
 
         switch (command) {
-            case "go":
+            case "go", "g":
                 if (words.length < 2) {
                     System.out.print("Go where?\n\n> ");
                     String[] in = scanner.nextLine().toLowerCase().split("\\s+");
@@ -81,12 +81,12 @@ public class CommandParser {
                 }
                 break;
 
-            case "look":
+            case "look", "l":
                 currentRoom = rooms.get(player.getCurrentRoomId());
                 System.out.println(currentRoom.getLongDescription(player));
                 break;
             
-            case "inventory":
+            case "inventory", "i":
                 if (player.getInventory().isEmpty()) {
                     System.out.println("Your inventory is empty.");
                 } else {
@@ -105,7 +105,7 @@ public class CommandParser {
                 }
                 break;
             
-            case "take":
+            case "take", "t":
                 if (words.length < 2) {
                     System.out.print("Take what?\n\n> ");
                     String[] in = scanner.nextLine().toLowerCase().split("\\s+");
@@ -183,7 +183,7 @@ public class CommandParser {
                 }
                 break;
             
-            case "drop":
+            case "drop", "d":
                 if (words.length < 2) {
                     System.out.print("Drop what?\n\n> ");
                     String[] in = scanner.nextLine().trim().toLowerCase().split("\\s+");
@@ -234,7 +234,7 @@ public class CommandParser {
                 }
                 break;
 
-            case "use":
+            case "use", "u":
                 if (words.length < 2) {
                     System.out.print("Use what?\n\n> ");
                     String[] in = scanner.nextLine().trim().toLowerCase().split("\\s+");
@@ -342,7 +342,7 @@ public class CommandParser {
                 }
                 break;
 
-            case "kill", "attack":
+            case "kill", "attack", "k", "a":
                 if (words.length < 2) {
                     List<Monster> monsters = currentRoom.getMonsters();
                     if (!monsters.isEmpty()) {
