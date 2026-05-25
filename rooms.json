@@ -171,7 +171,7 @@
       "description": "A trashed room with broken weapons scattered across the floor. There is a locked door to your north.",
       "exits": {
         "south": "control_entrance",
-        "north": "locked_armory"
+        "north": "forge"
       },
       "locked exits": {
         "north": "blacksmith_key"
@@ -181,11 +181,47 @@
       "monsters": []
     },
 
-    "locked_armory": {
+    "forge": {
       "name": "The Forge",
       "description": "A spacious room with a hard-working gnome called Gerald. He seems to have been trapped here for decades forging weapons.  ",
       "exits": {
         "south": "armory"
+      },
+      "items": [],
+      "tags": ["light"],
+      "monsters": []
+    },
+
+    "prison": {
+      "name": "Prison",
+      "description": "A large prison with moss growing from the ceiling and the ground. You see hallways to your north and south.  ",
+      "exits": {
+        "west": "octagon",
+        "north": "north_hallway",
+        "south": "south_hallway"
+      },
+      "items": [],
+      "tags": ["light"],
+      "monsters": []
+    },
+
+    "north_hallway": {
+      "name": "North Prison Hallway",
+      "description": "The northern hallway of an ancient prison. South leads back to the entrance of the prison. The hallway continues to the east. ",
+      "exits": {
+        "south": "prison",
+        "east": ""
+      },
+      "items": [],
+      "tags": ["light"],
+      "monsters": []
+    },
+
+    "south_hallway": {
+      "name": "South Prison Hallway",
+      "description": "The southern hallway of an ancient prison. North leads back to the entrance of the prison. The hallway continues to the east. ",
+      "exits": {
+        "south": "prison"
       },
       "items": [],
       "tags": ["light"],
