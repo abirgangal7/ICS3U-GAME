@@ -128,7 +128,7 @@
 
     "electrical_room": {
       "name": "Electrical Room",
-      "description": "A disastrous room with broken control panels, uncontrolled distribution boards, and no features to ensure your safety.",
+      "description": "A disastrous room with broken control panels, uncontrolled distribution boards, and no features to ensure your safety. You can exit the room by going south.",
       "exits": {
         "south": "control_room"
       },
@@ -168,7 +168,7 @@
 
     "armory": {
       "name": "Armory",
-      "description": "A trashed room with broken weapons scattered across the floor. There is a locked door to your north.",
+      "description": "A trashed room with broken weapons scattered across the floor. To your north is a door with a lock made of gilded steel. ",
       "exits": {
         "south": "control_entrance",
         "north": "forge"
@@ -183,7 +183,7 @@
 
     "forge": {
       "name": "The Forge",
-      "description": "A spacious room with a hard-working gnome called Gerald. He seems to have been trapped here for decades forging weapons.  ",
+      "description": "A spacious room with a hard-working gnome called Gerald. He seems to have been trapped here for decades forging weapons. South leads to the armory. ",
       "exits": {
         "south": "armory"
       },
@@ -201,7 +201,7 @@
         "south": "south_hallway"
       },
       "items": [],
-      "tags": ["light"],
+      "tags": [],
       "monsters": []
     },
 
@@ -213,19 +213,121 @@
         "east": ""
       },
       "items": [],
-      "tags": ["light"],
+      "tags": [],
       "monsters": []
     },
 
     "south_hallway": {
       "name": "South Prison Hallway",
-      "description": "The southern hallway of an ancient prison. North leads back to the entrance of the prison. The hallway continues to the east. ",
+      "description": "The southern hallway of an ancient prison. North leads back to the entrance of the prison. Going east takes you up a flight of stairs. ",
       "exits": {
-        "south": "prison"
+        "south": "prison",
+        "east": "balcony"
       },
       "items": [],
-      "tags": ["light"],
+      "tags": [],
+      "monsters": []
+    },
+
+    "balcony": {
+      "name": "Balcony",
+      "description": "A room exposed to the outdoors with an astonishingly beautiful yet unsettling view of the mountains. The snowy winter wind is calming, but leaves you questioning where you really are, and what your purpose here is. There is a locked door requiring a 4-digit code to the south. Go west to descend down the flight of stairs. ",
+      "exits": {
+        "west": "south_hallway",
+        "south": "closet"
+      },
+      "locked exits": {
+        "south": "keycode" 
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+
+    "closet": {
+      "name": "Closet",
+      "description": "A suffocating spider-infested room that you guess has not seen the light in centuries. There is a wire on the ground but it looks like it is connected to something. The only exit is north. ",
+      "exits": {
+        "north": "balcony"
+      },
+      "items": [
+        {
+          "id": "wire",
+          "name": "Wire",
+          "description": "A spare wire on the ground that looks risky to take without getting electrocuted",
+          "use": "unlock",
+          "weight": 1
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+    "north_hallway_cell_one": {
+      "name": "North Prison Hallway",
+      "description": "The middle of the northern hallway. West takes you to the beginning of the hallway. East takes you to the end of the hallway. There is an open prison cell to your south. ",
+      "exits": {
+        "south": "cell_one",
+        "east": "north_hallway_cell_two",
+        "west": "north_hallway"
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+    "north_hallway_cell_two": {
+      "name": "North Prison Hallway",
+      "description": "The end of the northern hallway. West takes you to the middle of the hallway. The door to your north has a black lock with a sleek, fancy design. There is an open prison cell to your south with a very kind inmate ushering you in! Oh wait, that's just a skeleton. ",
+      "exits": {
+        "south": "cell_two",
+        "north": "ruined_room",
+        "west": "north_hallway_cell_one"
+      },
+      "locked_exits": {
+        "north": "warden_key"
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+    "cell_one": {
+      "name": "Open Prison Cell",
+      "description": "An unkempt prison cell with a single mattress. North takes you out of the cell. You find a hole in the cell to your east. It seems to lead into another cell. ",
+      "exits": {
+        "north": "north_hallway_cell_one",
+        "east": "cell_two"
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+    "cell_two": {
+      "name": "Open Prison Cell",
+      "description": "An unkempt prison cell with a single mattress. A skeleton of an inmate seems to have been trying to reach out of the cell before he sadly passed away. You notice a gilded steel key stuck in its eye. North takes you out of the cell. There is a hole in the cell to your west. It seems to lead into another cell. ",
+      "exits": {
+        "north": "north_hallway_cell_two",
+        "west": "cell_one"
+      },
+      "items": [
+        {
+          "id": "blacksmith_key",
+          "name": "Blacksmith's Key",
+          "description": "A key made of gilded steel",
+          "use": "unlock",
+          "weight": 2
+        }
+      ],
+      "tags": [],
+      "monsters": []
+    },
+    "ruined_room": {
+      "name": "Ruined Room",
+      "description": "A dark room with a strange dark red liquid leaking from the ceiling. You see moss and molding growing on the walls and start questioning reality. North takes you deeper into the unknown. Going back south where you came from gurantees your safety. ",
+      "exits": {
+        "south": "north_hallway_cell_two",
+        "north": ""
+      },
+      "items": [],
+      "tags": [],
       "monsters": []
     }
-
 }
