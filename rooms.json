@@ -1,7 +1,7 @@
 {
     "startingRoom": {
       "name": "Entrance Hall",
-      "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, gilded lock to your west. A long corridor is northward.", 
+      "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, golden lock to your west. A long corridor is northward.", 
       "exits": {
         "north": "corridor",
         "west": "finalRoom"
@@ -101,7 +101,7 @@
 
     "control_hallway": {
       "name": "Control Room Hallway",
-      "description": "A hallway connected to mulitple offices. To your south is an office with an unlocked door. Eastwards leads to the entrance of the control room.",
+      "description": "A hallway connected to mulitple offices. To your south is an office with an unlocked door. There is a doorway to the west. Eastwards leads to the entrance of the control room.",
       "exits": {
         "south": "warden_office",
         "east": "control_entrance",
@@ -194,7 +194,7 @@
 
     "prison": {
       "name": "Prison",
-      "description": "A large prison with moss growing from the ceiling and the ground. You see hallways to your north and south.  ",
+      "description": "A large prison with moss growing from the ceiling and the ground. You see hallways to your north and south. There is very large room to the west.  ",
       "exits": {
         "west": "octagon",
         "north": "north_hallway",
@@ -210,7 +210,7 @@
       "description": "The northern hallway of an ancient prison. South leads back to the entrance of the prison. The hallway continues to the east. ",
       "exits": {
         "south": "prison",
-        "east": ""
+        "east": "north_hallway_cell_one"
       },
       "items": [],
       "tags": [],
@@ -221,7 +221,7 @@
       "name": "South Prison Hallway",
       "description": "The southern hallway of an ancient prison. North leads back to the entrance of the prison. Going east takes you up a flight of stairs. ",
       "exits": {
-        "south": "prison",
+        "north": "prison",
         "east": "balcony"
       },
       "items": [],
@@ -246,7 +246,7 @@
 
     "closet": {
       "name": "Closet",
-      "description": "A suffocating spider-infested room that you guess has not seen the light in centuries. There is a wire on the ground but it looks like it is connected to something. The only exit is north. ",
+      "description": "A suffocating spider-infested room that you guess has not seen the light in centuries. The only exit is north. ",
       "exits": {
         "north": "balcony"
       },
@@ -302,7 +302,7 @@
     },
     "cell_two": {
       "name": "Open Prison Cell",
-      "description": "An unkempt prison cell with a single mattress. A skeleton of an inmate seems to have been trying to reach out of the cell before he sadly passed away. You notice a gilded steel key stuck in its eye. North takes you out of the cell. There is a hole in the cell to your west. It seems to lead into another cell. ",
+      "description": "An unkempt prison cell with a single mattress. A skeleton of an inmate seems to have been trying to reach out of the cell before he sadly passed away. North takes you out of the cell. There is a hole in the cell to your west. It seems to lead into another cell. ",
       "exits": {
         "north": "north_hallway_cell_two",
         "west": "cell_one"
@@ -310,8 +310,8 @@
       "items": [
         {
           "id": "blacksmith_key",
-          "name": "Blacksmith's Key",
-          "description": "A key made of gilded steel",
+          "name": "Gilded Steel Key",
+          "description": "A key stuck in the eye of an inmate's skeleton, made of gilded steel",
           "use": "unlock",
           "weight": 2
         }
@@ -321,13 +321,55 @@
     },
     "ruined_room": {
       "name": "Ruined Room",
-      "description": "A dark room with a strange dark red liquid leaking from the ceiling. You see moss and molding growing on the walls and start questioning reality. North takes you deeper into the unknown. Going back south where you came from gurantees your safety. ",
+      "description": "A dark room with a strange dark red liquid leaking from the ceiling. You see moss and molding growing on the walls as your vision begins to blur. There is a fork in the path. You can either go east or west. Going back south where you came from gurantees your safety. ",
       "exits": {
         "south": "north_hallway_cell_two",
-        "north": ""
+        "west": "arena",
+        "east": "torture_room"
       },
       "items": [],
       "tags": [],
       "monsters": []
+    },
+    "arena": {
+      "name": "The Arena",
+      "description": "An arena modestly lit by bright orange torches. The walls are made of iron bars, acting as large prison cells to hold unworldly creatures. You hear heavy breathing and growling from the other side of the bars, however you cannot see past the bars due to the darkness. East takes you back to the ruined room. ",
+      "exits": {
+        "east": "ruined_room"
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+    "torture_room": {
+      "name": "Torture Room",
+      "description": "A cruel torture room with bodies hanging from the ceiling by hooks. You are unsure how much further you want to explore this area. You can turn back now by going west through the door which you came. However, there is a mysterious gray door to the north that is open slightly.  ",
+      "exits": {
+        "west": "ruined_room",
+        "north": "execution_room"
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
+    },
+    "execution_room": {
+      "name": "Execution Room",
+      "description": "A room with the sole purpose of execution. You can see numerous machines used for killing. ",
+      "exits": {
+        "south": "torture_room"
+      },
+      "items": [
+        {
+          "id": "paper",
+          "name": "Piece of paper",
+          "description": "A piece of paper with the digits '9472' written on it",
+          "use": "idk",
+          "weight": 1
+        }
+      ],
+      "tags": [],
+      "monsters": []
     }
+
+
 }
