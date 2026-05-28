@@ -173,7 +173,7 @@
         "south": "control_entrance",
         "north": "forge"
       },
-      "locked exits": {
+      "lockedExits": {
         "north": "blacksmith_key"
       },
       "items": [],
@@ -236,7 +236,7 @@
         "west": "south_hallway",
         "south": "closet"
       },
-      "locked exits": {
+      "lockedExits": {
         "south": "keycode" 
       },
       "items": [],
@@ -252,7 +252,7 @@
       },
       "items": [
         {
-          "id": "wire",
+          "id": "wiredmg",
           "name": "Wire",
           "description": "A spare wire on the ground that looks risky to take without getting electrocuted",
           "use": "unlock",
@@ -282,7 +282,7 @@
         "north": "ruined_room",
         "west": "north_hallway_cell_one"
       },
-      "locked_exits": {
+      "lockedExits": {
         "north": "warden_key"
       },
       "items": [],
