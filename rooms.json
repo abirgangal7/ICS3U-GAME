@@ -22,7 +22,7 @@
           "id": "feather",
           "name": "Tungsten Feather",
           "description": "A regular feather",
-          "use": "idk",
+          "use": "unlock",
           "weight": 60
         }
 
@@ -201,7 +201,7 @@
       "monsters": [
         {
           "name": "Gerald",
-          "description": "",
+          "description": "Gerald really wants a feather",
           "hp": 2000000000000000000,
           "dmg": 500000000,
           "inventory": [
@@ -355,6 +355,9 @@
       "exits": {
         "east": "ruined_room",
         "north": "Secret arena room"
+      },
+      "lockedExits": {
+        "north": "Feather" 
       },
       "items": [],
       "tags": [],
