@@ -56,13 +56,13 @@
       "name": "Octagon",
       "description": "A large octagonal-shaped chamber. To the north is a gated pathway. You see doorways both west and east.",
       "exits": {
-        "north": "locked gate",
+        "north": "The Pale Seal",
         "south": "corridor",
         "west": "control_entrance",
         "east": "prison"
       },
       "lockedExits":{
-        "north": "gate_key"
+        "north": "Pendant"
       },
       "items" : [],
       "tags": [],
@@ -436,6 +436,17 @@
           ]
         }
       ]
+    },
+
+     "The Pale Seal": {
+      "name": "Pale Forest",
+      "description": "You stand in a beautiful pale, snowy forest. You can hear the birds chirping and the wind rustling. Congrats. You got out of the cellar.",
+      "exits": {
+      
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
     }
 
 }
