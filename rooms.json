@@ -25,6 +25,7 @@
           "use": "idk",
           "weight": 60
         }
+
       ],
       "tags": [],
       "monsters": []
@@ -187,9 +188,34 @@
       "exits": {
         "south": "armory"
       },
-      "items": [],
+      "items": [
+        {
+          "id": "Keycard",
+          "name": "Keycard",
+          "description": "A Keycard with the name John on it",
+          "use": "unlock",
+          "weight": 1
+        }
+      ],
       "tags": ["light"],
-      "monsters": []
+      "monsters": [
+        {
+          "name": "Gerald",
+          "description": "",
+          "hp": 2000000000000000000,
+          "dmg": 500000000,
+          "inventory": [
+            {
+              "id": "Gerald's really cool hat",
+              "name": "Gerald's really cool hat",
+              "description": "It's a really cool hat",
+              "use": "weapon",
+              "weight": 2,
+              "dmg": 10000000000
+            }
+          ]
+        }
+      ]
     },
 
     "prison": {
@@ -231,13 +257,13 @@
 
     "balcony": {
       "name": "Balcony",
-      "description": "A room exposed to the outdoors with an astonishingly beautiful yet unsettling view of the mountains. The snowy winter wind is calming, but leaves you questioning where you really are, and what your purpose here is. There is a locked door requiring a 4-digit code to the south. Go west to descend down the flight of stairs. ",
+      "description": "A room exposed to the outdoors with an astonishingly beautiful yet unsettling view of the mountains. The snowy winter wind is calming, but leaves you questioning where you really are, and what your purpose here is. There is a locked door with a slot to put in a card with the name John to the south. Go west to descend down the flight of stairs. ",
       "exits": {
         "west": "south_hallway",
         "south": "closet"
       },
       "lockedExits": {
-        "south": "keycode" 
+        "south": "Keycard" 
       },
       "items": [],
       "tags": [],
@@ -307,15 +333,7 @@
         "north": "north_hallway_cell_two",
         "west": "cell_one"
       },
-      "items": [
-        {
-          "id": "blacksmith_key",
-          "name": "Gilded Steel Key",
-          "description": "A key stuck in the eye of an inmate's skeleton, made of gilded steel",
-          "use": "unlock",
-          "weight": 2
-        }
-      ],
+      "items": [],
       "tags": [],
       "monsters": []
     },
@@ -333,11 +351,31 @@
     },
     "arena": {
       "name": "The Arena",
-      "description": "An arena modestly lit by bright orange torches. The walls are made of iron bars, acting as large prison cells to hold unworldly creatures. You hear heavy breathing and growling from the other side of the bars, however you cannot see past the bars due to the darkness. East takes you back to the ruined room. ",
+      "description": "An arena modestly lit by bright orange torches. The walls are made of iron bars, acting as large prison cells to hold unworldly creatures. You hear heavy breathing and growling from the other side of the bars, however you cannot see past the bars due to the darkness. However you notice north of you, that there is a wall that is a little broken. Maybe something really heavy can break it. Like something REALLY heavy. Like tungstein heavy East takes you back to the ruined room. ",
       "exits": {
-        "east": "ruined_room"
+        "east": "ruined_room",
+        "north": "Secret arena room"
       },
       "items": [],
+      "tags": [],
+      "monsters": []
+    },
+    "Secret arena room": {
+      "name": "The Medical Room",
+      "description": "It's an abandonned medical room, used for sick people, filled with moss, ruined floor tiles, and empty hospital beds. ",
+      "exits": {
+        "east": "ruined_room",
+        "north": "Secret arena room"
+      },
+      "items": [
+        {
+          "id": "Lifeblood",
+          "name": "Lifeblood",
+          "description": "A vial with blue liquid in it called Lifeblood",
+          "use": "",
+          "weight": 2
+        }
+      ],
       "tags": [],
       "monsters": []
     },
@@ -354,17 +392,17 @@
     },
     "execution_room": {
       "name": "Execution Room",
-      "description": "A room with the sole purpose of execution. You can see numerous machines used for killing. ",
+      "description": "A room with the sole purpose of execution. You can see numerous machines used for killing. There are many skeletons just lingering in the room. ",
       "exits": {
         "south": "torture_room"
       },
       "items": [
         {
-          "id": "paper",
-          "name": "Piece of paper",
-          "description": "A piece of paper with the digits '9472' written on it",
-          "use": "idk",
-          "weight": 1
+          "id": "blacksmith_key",
+          "name": "Gilded Steel Key",
+          "description": "A key stuck in the eye of one of the skeleton, made of gilded steel",
+          "use": "unlock",
+          "weight": 2
         }
       ],
       "tags": [],
@@ -378,7 +416,23 @@
       },
       "items": [],
       "tags": [],
-      "monsters": []
+      "monsters": [
+        {
+          "name": "The Pale Serpant",
+          "description": "A giant white serpent blocks your path.",
+          "hp": 200,
+          "dmg": 10,
+          "inventory": [
+            {
+              "id": "Pendant",
+              "name": "The Pale Pendant",
+              "description": "It's a really cool hat",
+              "use": "unlock",
+              "weight": 0
+            }
+          ]
+        }
+      ]
     }
 
 }
