@@ -312,6 +312,39 @@ public class CommandParser {
                             case "unlock":
                                 String itemID = itemToUse.getId();
                                 
+                                if (itemID.equalsIgnoreCase("wire") || itemID.equalsIgnoreCase("wiredmg")) {
+                                Item secondWire = null;
+                                for (Item inv : player.getInventory()) {
+                                    if ((inv.getId().equalsIgnoreCase("wire") || inv.getId().equalsIgnoreCase("wiredmg"))
+                                            && !inv.getId().equalsIgnoreCase(itemID)) {
+                                        secondWire = inv;
+                                        break;
+                                    }
+                                }
+
+                                if (secondWire != null) {
+                                    String directionToUnlock = null;
+                                    for (String dir : currentRoom.getExits().keySet()) {
+                                        if (currentRoom.isExitLocked(dir) && currentRoom.getRequiredKeyId(dir).equalsIgnoreCase("finkey")) {
+                                            directionToUnlock = dir;
+                                            break;
+                                        }
+                                    }
+
+                                    if (directionToUnlock != null) {
+                                        currentRoom.unlockExit(directionToUnlock);
+                                        player.removeItem(itemToUse);
+                                        player.removeItem(secondWire);
+                                        System.out.println("You splice the two wires together. The golden lock sparks and clicks open.");
+                                    } else {
+                                        System.out.println("You fiddle with the wires, but there's nothing to connect them to here.");
+                                    }
+                                } else {
+                                    System.out.println("You only have one wire. You'll need another to do anything useful.");
+                                }
+                                break;
+                            }
+
                                 String directionToUnlock = null;
                                 for (String dir : currentRoom.getExits().keySet()) {
                                     if (currentRoom.isExitLocked(dir) && itemID.equalsIgnoreCase(currentRoom.getRequiredKeyId(dir))) {

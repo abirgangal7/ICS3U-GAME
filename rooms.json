@@ -369,7 +369,16 @@
       ],
       "tags": [],
       "monsters": []
+    },
+    "finalRoom": {
+      "name": "Final Room",
+      "description": "",
+      "exits": {
+        "east": "startingRoom"
+      },
+      "items": [],
+      "tags": [],
+      "monsters": []
     }
-
 
 }
