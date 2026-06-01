@@ -5,6 +5,7 @@ public class Monster {
     private String name;
     private String description;
     private int hp;
+    private int mhp;
     private int dmg;
     private List<Item> inventory;
 
@@ -12,6 +13,7 @@ public class Monster {
         this.name = name;
         this.description = description;
         this.hp = hp;
+        this.mhp = hp;
         this.dmg = dmg;
         this.inventory = inventory;
     }
@@ -43,6 +45,10 @@ public class Monster {
     public void die(Room room, Player player) {
         if (hp <= 0) {
             System.out.println("The " + name + " dies");
+            if (room.getId().matches("cage"))
+            {
+               System.out.println("A pale pendant is on the floor. Pick it up and you are marked forever"); 
+            }
 
             for (Item item : inventory) {
                 room.addItem(item);
@@ -50,7 +56,7 @@ public class Monster {
 
             room.removeMonster(this);
 
-            player.addScore(hp);
+            player.addScore(mhp);
             player.addMoney(2);
         }
     }

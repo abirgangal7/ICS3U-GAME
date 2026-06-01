@@ -10,6 +10,8 @@ public class Game {
         RoomLoader roomLoader = new RoomLoader();
         rooms = roomLoader.loadRooms("rooms.json");
         player = new Player("startingRoom");
+        // player.addItem(new Item("feather", "Tungsten Feather", "feather", "feather", 0));
+        // player.addItem(new Item("light", "light", "light", "light", 0));
         commandParser = new CommandParser();
     }
 

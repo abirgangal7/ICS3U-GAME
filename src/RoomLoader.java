@@ -74,7 +74,15 @@ public class RoomLoader {
                         String itemDescription = itemObj.get("description").getAsString();
                         String itemUse = itemObj.get("use").getAsString();
                         int itemWeight = itemObj.get("weight").getAsInt();
-                        inventory.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
+                         if (itemUse.equalsIgnoreCase("weapon")) {
+                            int itemDmg = itemObj.get("dmg").getAsInt();
+                            items.add(new Weapon(itemId, itemName, itemDescription, itemUse, itemWeight, itemDmg));
+                        } else if (itemUse.equalsIgnoreCase("heal")) {
+                            int healAmt = itemObj.get("healAmt").getAsInt();
+                            items.add(new Healable(itemId, itemName, itemDescription, itemUse, itemWeight, healAmt));
+                        } else {
+                            items.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
+                        }
                     }
                     monsters.add(new Monster(monsterName, monsterDesc, hp, dmg, inventory));
                 }

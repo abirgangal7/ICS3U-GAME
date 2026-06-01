@@ -97,6 +97,8 @@ public class CommandParser {
                     for (Item item : player.getInventory()) {
                         if (item instanceof Weapon w) {
                             System.out.println("- " + w.getName() + " (" + w.getDmg() + " dmg)    " + w.getWeight() + " lb(s)");
+                        } else if (item instanceof Healable h) {
+                            System.out.println("- " + h.getName() + " (+" + h.getAmt() + ")    " + h.getWeight() + " lb(s)");
                         } else {
                             System.out.println("- " + item.getName() + "    " + item.getWeight() + " lb(s)");
                         }
@@ -366,6 +368,7 @@ public class CommandParser {
                                 if (itemToUse instanceof Healable h) {
                                     System.out.println("You use the " + itemName + " and feel rejuvenated!\n");
                                     player.heal(h.getAmt());
+                                    player.removeItem(itemToUse);
                                 }
                                 break;
                             }
@@ -381,8 +384,11 @@ public class CommandParser {
 
                                 if (directionToUnlock != null) {
                                     currentRoom.unlockExit(directionToUnlock);
-                                    player.removeItem(itemToUse);
                                     System.out.println("A door slides open...");
+                                    if (currentRoom.getName().matches("The Forge"))
+                                    {
+                                        player.removeItem(itemToUse);
+                                    }
                                 } else {
                                     System.out.println("There's nowhere to use this here");
                                 }
@@ -431,7 +437,6 @@ public class CommandParser {
                                 System.out.println("You don't have anything to kill yourself with");
                             }
                         } else {
-                            
                             Monster monsterToAtk = null;
                             int dmg = player.getDmg();
                             
@@ -500,33 +505,80 @@ public class CommandParser {
                                         }
                                         
                                         Thread.sleep(2000);
-                                        System.out.print("Flee or attack?\n\n> ");
-                                        String choice = scanner.nextLine();
+                                        System.out.println("HP: " + player.getHp() + "              " + monsterName + " HP: " + monsterToAtk.getHP());
+                                        System.out.print("Flee, heal, or attack?");
+                                        boolean done = false;
 
-                                        if (choice.equalsIgnoreCase("flee")) {
-                                            System.out.println("You run...");
-                                            Thread.sleep(2000);
-                                            String temp = player.getCurrentRoomId();
-                                            player.setCurrentRoomId(player.getPrevRoomId());
-                                            player.setPrevRoomId(temp);
-                                            currentRoom = rooms.get(player.getCurrentRoomId());
-                                            System.out.println(currentRoom.getLongDescription(player));
-                                            break;
-                                        } else if (choice.equalsIgnoreCase("attack")) {
-                                            System.out.println("You attack again!");
-                                            Thread.sleep(2000);
-                                            if (weaponToUse != null) {
-                                                System.out.println("You swing your " + weaponToUse.getName() + " and strike the " + monsterName + "!");
-                                            } else {
-                                                System.out.println("You punch the " + monsterName + "!");
+                                        while (!done) {
+                                            System.out.print("\n\n> ");
+                                            String choice = scanner.nextLine();
+
+                                            if (choice.equalsIgnoreCase("flee")) {
+                                                System.out.println("You run...");
+                                                Thread.sleep(2000);
+                                                String temp = player.getCurrentRoomId();
+                                                player.setCurrentRoomId(player.getPrevRoomId());
+                                                player.setPrevRoomId(temp);
+                                                currentRoom = rooms.get(player.getCurrentRoomId());
+                                                System.out.println(currentRoom.getLongDescription(player));
+                                                fighting = false;
+                                                done = true;
+                                            } else if (choice.equalsIgnoreCase("attack")) {
+                                                System.out.println("You attack again!");
+                                                Thread.sleep(2000);
+                                                if (weaponToUse != null) {
+                                                    System.out.println("You swing your " + weaponToUse.getName() + " and strike the " + monsterName + "!");
+                                                } else {
+                                                    System.out.println("You punch the " + monsterName + "!");
+                                                }
+                                                monsterToAtk.take_dmg(dmg);
+                                                monsterToAtk.die(currentRoom, player);
+                                                done = true;
+                                            } else if (choice.equalsIgnoreCase("heal")) {
+                                                List<Healable> healables = new ArrayList<>();
+                                                Healable healToUse = null;
+
+                                                for (Item i : player.getInventory()) {
+                                                    if (i instanceof Healable h) {
+                                                        healables.add(h);
+                                                    }
+                                                }
+
+                                                if (healables.size() != 0) {
+                                                    System.out.println("Available items:");
+                                                    for (Healable h : healables) {
+                                                        System.out.println("- " + h.getName() + " (+" + h.getAmt() + ")");
+                                                    }
+
+                                                    boolean doneChoice = false;
+                                                    while (!doneChoice) {
+                                                        System.out.print("What item do you want to use?\n\n> ");
+                                                        String itemName = scanner.nextLine();
+
+                                                        for (Healable h : healables) {
+                                                            if (h.getName().toLowerCase().contains(itemName)) {
+                                                                healToUse = h;
+                                                                doneChoice = true;
+                                                            } else {
+                                                                System.out.println("Pick a valid option");
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (healToUse != null) {
+                                                        player.heal(healToUse.getAmt());
+                                                        player.removeItem(healToUse);
+                                                        System.out.println("You use the " + healToUse.getName());
+                                                    }
+
+                                                    done = true;
+                                                } else {
+                                                    System.out.println("You have no healables");
+                                                }
                                             }
-                                            monsterToAtk.take_dmg(dmg);
-                                            monsterToAtk.die(currentRoom, player);
-                                        } else {
-                                            System.out.println("Guess I'll make you attack again...");
-                                            System.out.println("You attack hesitantly...");
-                                            monsterToAtk.take_dmg(dmg);
-                                            monsterToAtk.die(currentRoom, player);
+                                            else {
+                                                System.out.println("Pick a valid option!");
+                                            }
                                         }
                                     }
                                 } catch (Exception e) {
@@ -629,33 +681,78 @@ public class CommandParser {
                                     }
                                     
                                     Thread.sleep(2000);
-                                    System.out.print("Flee or attack?\n\n> ");
-                                    String choice = scanner.nextLine();
+                                    System.out.println("HP: " + player.getHp() + "              " + monsterName + " HP: " + monsterToAtk.getHP());
+                                    System.out.print("Flee, heal, or attack?");
+                                    boolean done = false;
+                                    while (!done) {
+                                        System.out.print("\n\n> ");
+                                        String choice = scanner.nextLine();
+                                        
+                                        if (choice.equalsIgnoreCase("flee")) {
+                                            System.out.println("You run...");
+                                            Thread.sleep(2000);
+                                            String temp = player.getCurrentRoomId();
+                                            player.setCurrentRoomId(player.getPrevRoomId());
+                                            player.setPrevRoomId(temp);
+                                            currentRoom = rooms.get(player.getCurrentRoomId());
+                                            System.out.println(currentRoom.getLongDescription(player));
+                                            fighting = false;
+                                            done = true;
+                                        } else if (choice.equalsIgnoreCase("attack")) {
+                                            System.out.println("You attack again!");
+                                            Thread.sleep(2000);
+                                            if (weaponToUse != null) {
+                                                System.out.println("You swing your " + weaponToUse.getName() + " and strike the " + monsterName + "!");
+                                            } else {
+                                                System.out.println("You punch the " + monsterName + "!");
+                                            }
+                                            monsterToAtk.take_dmg(dmg);
+                                            monsterToAtk.die(currentRoom, player);
+                                            done = true;
+                                        } else if (choice.equalsIgnoreCase("heal")) {
+                                            List<Healable> healables = new ArrayList<>();
+                                            Healable healToUse = null;
 
-                                    if (choice.equalsIgnoreCase("flee")) {
-                                        System.out.println("You run...");
-                                        Thread.sleep(2000);
-                                        String temp = player.getCurrentRoomId();
-                                        player.setCurrentRoomId(player.getPrevRoomId());
-                                        player.setPrevRoomId(temp);
-                                        currentRoom = rooms.get(player.getCurrentRoomId());
-                                        System.out.println(currentRoom.getLongDescription(player));
-                                        break;
-                                    } else if (choice.equalsIgnoreCase("attack")) {
-                                        System.out.println("You attack again!");
-                                        Thread.sleep(2000);
-                                        if (weaponToUse != null) {
-                                            System.out.println("You swing your " + weaponToUse.getName() + " and strike the " + monsterName + "!");
+                                            for (Item i : player.getInventory()) {
+                                                if (i instanceof Healable h) {
+                                                    healables.add(h);
+                                                }
+                                            }
+
+                                            if (healables.size() != 0) {
+                                                System.out.println("Available items:");
+                                                for (Healable h : healables) {
+                                                    System.out.println("- " + h.getName() + " (+" + h.getAmt() + ")");
+                                                }
+
+                                                boolean doneChoice = false;
+                                                while (!doneChoice) {
+                                                    System.out.print("What item do you want to use?\n\n> ");
+                                                    String itemName = scanner.nextLine();
+
+                                                    for (Healable h : healables) {
+                                                        if (h.getName().toLowerCase().contains(itemName)) {
+                                                            healToUse = h;
+                                                            doneChoice = true;
+                                                        } else {
+                                                            System.out.println("Pick a valid option");
+                                                        }
+                                                    }
+                                                }
+
+                                                if (healToUse != null) {
+                                                    player.heal(healToUse.getAmt());
+                                                    player.removeItem(healToUse);
+                                                    System.out.println("You use the " + healToUse.getName());
+                                                }
+
+                                                done = true;
+                                            } else {
+                                                System.out.println("You have no healables");
+                                            }
                                         } else {
-                                            System.out.println("You punch the " + monsterName + "!");
+                                            System.out.print("Pick a valid option!");
                                         }
-                                        monsterToAtk.take_dmg(dmg);
-                                        monsterToAtk.die(currentRoom, player);
-                                    } else {
-                                        System.out.println("Guess I'll make you attack again...");
-                                        System.out.println("You attack hesitantly...");
-                                        monsterToAtk.take_dmg(dmg);
-                                        monsterToAtk.die(currentRoom, player);
                                     }
                                 }
                             } catch (Exception e) {
@@ -664,7 +761,7 @@ public class CommandParser {
                         } else {
                             System.out.println("There is no " + cmd + " here");
                         }
-                    }
+                    }    
                 }
                 break;
             

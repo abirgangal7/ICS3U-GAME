@@ -3,8 +3,8 @@
       "name": "Entrance Hall",
       "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, golden lock to your west. A long corridor is northward.", 
       "exits": {
-        "north": "corridor",
-        "west": "finalRoom"
+        "north": "cage",
+        "west": "cage"
       },
       "lockedExits": {
         "west": "finkey"
@@ -61,7 +61,7 @@
 
     "octagon": {
       "name": "Octagon",
-      "description": "A large octagonal-shaped chamber. To the north is a gated pathway. You see doorways both west and east.",
+      "description": "A large octagonal-shaped chamber. To the north is a gated pathway. You see doorways both west and east. There is a door to your north with the pale pendant, hollowed out. You need to find it and insert it.",
       "exits": {
         "north": "The Pale Seal",
         "south": "corridor",
@@ -75,18 +75,18 @@
       "tags": [],
       "monsters": [
         {
-          "name": "Troll",
-          "description": "A troll guarding the treasure",
-          "hp": 20,
-          "dmg": 5,
+          "name": "Pale Servant",
+          "description": "A Pale Servant is guarding the Pendant door",
+          "hp": 60,
+          "dmg": 20,
           "inventory": [
             {
-              "id": "axe",
-              "name": "Axe",
-              "description": "An axe",
+              "id": "PaleBlade",
+              "name": "The Pale Katana",
+              "description": "A Pale Katana that has been passed down through generations.",
               "use": "weapon",
-              "weight": 10,
-              "dmg": 10
+              "weight": 15,
+              "dmg": 30
             }
           ]
         }
@@ -129,7 +129,16 @@
         "north": "electrical_room"
       },
 
-      "items": [],
+      "items": [
+        {
+          "id": "BoxOfCookie",
+          "name": "Box of Cookies",
+          "description": "It's a box of cookies.",
+          "use": "heal",
+          "weight": 6,
+          "healAmt": 15
+        }
+      ],
       "tags": [],
       "monsters": []
     },
@@ -161,17 +170,33 @@
         "north": "control_hallway"
       },
       
-      "items": [
-        {
-          "id": "warden_key",
-          "name": "Warden's Key",
-          "description": "A black key with a sleek, fancy design",
-          "use": "unlock",
-          "weight": 2
-        }
-      ],
+      "items": [],
       "tags": [],
-      "monsters": []
+      "monsters": [
+         {
+          "name": "Forgotten Warden",
+          "description": "The Forgotten Warden roams around the office, as if it still works there.",
+          "hp": 15,
+          "dmg": 7,
+          "inventory": [
+            {
+              "id": "wardenwep",
+              "name": "Rusty Sword",
+              "description": "This probably could give someone tetanus",
+              "use": "weapon",
+              "weight": 6,
+              "dmg": 9
+            },
+            {
+              "id": "warden_key",
+              "name": "Warden's Key",
+              "description": "A black key with a sleek, fancy design",
+              "use": "unlock",
+              "weight": 2
+            }
+          ]
+        }
+      ]
     },
 
     "armory": {
@@ -373,7 +398,16 @@
         "north": "north_hallway_cell_two",
         "west": "cell_one"
       },
-      "items": [],
+      "items": [
+        {
+          "id": "cake",
+          "name": "Chocolate Cake",
+          "description": "A whole, 7 layer chocolate cake. I dont know why this is here but it tastes good.",
+          "use": "heal",
+          "weight": 20,
+          "healAmt": 32
+        }
+      ],
       "tags": [],
       "monsters": []
     },
@@ -401,13 +435,30 @@
       },
       "items": [],
       "tags": [],
-      "monsters": []
+      "monsters": [
+        {
+          "name": "The Juggernaut",
+          "description": "The Juggernaut stands in the area with its horse",
+          "hp": 45,
+          "dmg": 10,
+          "inventory": [
+            {
+              "id": "Greataxe",
+              "name": "Greataxe of the tomb",
+              "description": "A greataxe infused with the blood of prisoners that were executed.",
+              "use": "weapon",
+              "weight": 20,
+              "dmg": 17
+            }
+          ]
+        }
+      ]
     },
     "Secret arena room": {
       "name": "The Medical Room",
       "description": "It's an abandonned medical room, used for sick people, filled with moss, ruined floor tiles, and empty hospital beds. ",
       "exits": {
-        "south": "The Arena"
+        "south": "arena"
       },
       "items": [
         {
@@ -416,7 +467,7 @@
           "description": "A vial with blue liquid in it called Lifeblood",
           "use": "heal",
           "weight": 2,
-          "healAmt": 40
+          "healAmt": 55
         }
       ],
       "tags": [],
@@ -446,13 +497,21 @@
           "description": "A key stuck in the eye of one of the skeleton, made of gilded steel",
           "use": "unlock",
           "weight": 2
+        },
+        {
+          "id": "arm",
+          "name": "Lifeblood Infused Arm",
+          "description": "A ripped off arm that was from a corpse that has been infused with lifeblood.",
+          "use": "heal",
+          "weight": 5,
+          "healAmt": 25
         }
       ],
       "tags": [],
       "monsters": []
     },
-    "finalRoom": {
-      "name": "Final Room",
+    "cage": {
+      "name": "The Cage",
       "description": "",
       "exits": {
         "east": "startingRoom"
