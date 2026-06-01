@@ -42,6 +42,9 @@ public class RoomLoader {
                     if (itemUse.equalsIgnoreCase("weapon")) {
                         int itemDmg = itemObj.get("dmg").getAsInt();
                         items.add(new Weapon(itemId, itemName, itemDescription, itemUse, itemWeight, itemDmg));
+                    } else if (itemUse.equalsIgnoreCase("heal")) {
+                        int healAmt = itemObj.get("healAmt").getAsInt();
+                        items.add(new Healable(itemId, itemName, itemDescription, itemUse, itemWeight, healAmt));
                     } else {
                         items.add(new Item(itemId, itemName, itemDescription, itemUse, itemWeight));
                     }

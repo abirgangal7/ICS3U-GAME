@@ -97,7 +97,7 @@ public class Room {
                 sb.append("\n").append("You see ");
                 for (Monster monster : monsters) {
                     if (monsters.size() == 1) {
-                        sb.append(monster.getDescription().toLowerCase()).append(", ");
+                        sb.append(monster.getDescription().toLowerCase()).append(". ");
                     } else if (monster == monsters.get(monsters.size() - 2)) {
                         sb.append(monster.getDescription().toLowerCase()).append(", and ");
                     } else {

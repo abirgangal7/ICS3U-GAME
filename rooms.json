@@ -22,10 +22,17 @@
           "id": "feather",
           "name": "Tungsten Feather",
           "description": "A regular feather",
-          "use": "unlock",
+          "use": "feather",
           "weight": 60
+        },
+        {
+          "id": "MCheeseburger",
+          "name": "Moldy Cheeseburger",
+          "description": "It's a really, really moldy cheeseburger",
+          "use": "heal",
+          "weight": 2,
+          "healAmt": 7
         }
-
       ],
       "tags": [],
       "monsters": []
@@ -177,7 +184,16 @@
       "lockedExits": {
         "north": "blacksmith_key"
       },
-      "items": [],
+      "items": [
+        {
+          "id": "Cool Cheeseburger",
+          "name": "Cool Cheeseburger",
+          "description": "It's a really, really cool cheeseburger",
+          "use": "heal",
+          "weight": 2,
+          "healAmt": 20
+        }
+      ],
       "tags": ["light"],
       "monsters": []
     },
@@ -197,7 +213,7 @@
           "weight": 1
         }
       ],
-      "tags": ["light"],
+      "tags": [],
       "monsters": [
         {
           "name": "Gerald",
@@ -367,16 +383,16 @@
       "name": "The Medical Room",
       "description": "It's an abandonned medical room, used for sick people, filled with moss, ruined floor tiles, and empty hospital beds. ",
       "exits": {
-        "east": "ruined_room",
-        "north": "Secret arena room"
+        "south": "The Arena"
       },
       "items": [
         {
           "id": "Lifeblood",
           "name": "Lifeblood",
           "description": "A vial with blue liquid in it called Lifeblood",
-          "use": "",
-          "weight": 2
+          "use": "heal",
+          "weight": 2,
+          "healAmt": 40
         }
       ],
       "tags": [],

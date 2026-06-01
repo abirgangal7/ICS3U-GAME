@@ -20,7 +20,7 @@ public class Player {
         this.carry = 0;
         this.carry_cap = 60;
         this.dmg = 1;
-        this.hp = 20;
+        this.hp = 50;
         this.score = 0;
         this.money = 0;
         this.alive = true;
@@ -132,5 +132,9 @@ public class Player {
 
     public List<String> getTags() {
         return tags;
+    }
+
+    public void heal(int amt) {
+        hp += amt;
     }
 }

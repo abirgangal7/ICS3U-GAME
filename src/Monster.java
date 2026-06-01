@@ -50,7 +50,7 @@ public class Monster {
 
             room.removeMonster(this);
 
-            player.addScore(20);
+            player.addScore(hp);
             player.addMoney(2);
         }
     }

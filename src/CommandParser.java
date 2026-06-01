@@ -304,46 +304,47 @@ public class CommandParser {
                         String use = itemToUse.getUse();
                         
                         switch (use) {
-                            case "light":
+                            case "light": {
                                 player.addTag("light");
                                 System.out.println("Your " + itemName + " makes the area brighter.");
                                 System.out.println(currentRoom.getLongDescription(player));
                                 break;
-                            case "unlock":
+                            }
+                            case "unlock": {
                                 String itemID = itemToUse.getId();
                                 
                                 if (itemID.equalsIgnoreCase("wire") || itemID.equalsIgnoreCase("wiredmg")) {
-                                Item secondWire = null;
-                                for (Item inv : player.getInventory()) {
-                                    if ((inv.getId().equalsIgnoreCase("wire") || inv.getId().equalsIgnoreCase("wiredmg"))
-                                            && !inv.getId().equalsIgnoreCase(itemID)) {
-                                        secondWire = inv;
-                                        break;
-                                    }
-                                }
-
-                                if (secondWire != null) {
-                                    String directionToUnlock = null;
-                                    for (String dir : currentRoom.getExits().keySet()) {
-                                        if (currentRoom.isExitLocked(dir) && currentRoom.getRequiredKeyId(dir).equalsIgnoreCase("finkey")) {
-                                            directionToUnlock = dir;
+                                    Item secondWire = null;
+                                    for (Item inv : player.getInventory()) {
+                                        if ((inv.getId().equalsIgnoreCase("wire") || inv.getId().equalsIgnoreCase("wiredmg"))
+                                                && !inv.getId().equalsIgnoreCase(itemID)) {
+                                            secondWire = inv;
                                             break;
                                         }
                                     }
 
-                                    if (directionToUnlock != null) {
-                                        currentRoom.unlockExit(directionToUnlock);
-                                        player.removeItem(itemToUse);
-                                        player.removeItem(secondWire);
-                                        System.out.println("You splice the two wires together. The golden lock sparks and clicks open.");
+                                    if (secondWire != null) {
+                                        String directionToUnlock = null;
+                                        for (String dir : currentRoom.getExits().keySet()) {
+                                            if (currentRoom.isExitLocked(dir) && currentRoom.getRequiredKeyId(dir).equalsIgnoreCase("finkey")) {
+                                                directionToUnlock = dir;
+                                                break;
+                                            }
+                                        }
+
+                                        if (directionToUnlock != null) {
+                                            currentRoom.unlockExit(directionToUnlock);
+                                            player.removeItem(itemToUse);
+                                            player.removeItem(secondWire);
+                                            System.out.println("You splice the two wires together. The golden lock sparks and clicks open.");
+                                        } else {
+                                            System.out.println("You fiddle with the wires, but there's nothing to connect them to here.");
+                                        }
                                     } else {
-                                        System.out.println("You fiddle with the wires, but there's nothing to connect them to here.");
+                                        System.out.println("You only have one wire. You'll need another to do anything useful.");
                                     }
-                                } else {
-                                    System.out.println("You only have one wire. You'll need another to do anything useful.");
+                                    break;
                                 }
-                                break;
-                            }
 
                                 String directionToUnlock = null;
                                 for (String dir : currentRoom.getExits().keySet()) {
@@ -360,11 +361,34 @@ public class CommandParser {
                                     System.out.println("The key doesn't seem to fit.");
                                 }
                                 break;
-
-                            case "weapon":
-                                System.out.println("You look at the " + itemName + " admiring its sharp edge and the way the light reflects off of it.\n");
+                            }
+                            case "heal": {
+                                if (itemToUse instanceof Healable h) {
+                                    System.out.println("You use the " + itemName + " and feel rejuvenated!\n");
+                                    player.heal(h.getAmt());
+                                }
                                 break;
-                                
+                            }
+                            case "feather": {
+                                String itemID = itemToUse.getId();
+                                String directionToUnlock = null;
+                                for (String dir : currentRoom.getExits().keySet()) {
+                                    if (currentRoom.isExitLocked(dir) && itemID.equalsIgnoreCase(currentRoom.getRequiredKeyId(dir))) {
+                                        directionToUnlock = dir;
+                                        break;
+                                    }
+                                }
+
+                                if (directionToUnlock != null) {
+                                    currentRoom.unlockExit(directionToUnlock);
+                                    player.removeItem(itemToUse);
+                                    System.out.println("A door slides open...");
+                                } else {
+                                    System.out.println("There's nowhere to use this here");
+                                }
+                                break;
+                            }
+
                             default:
                                 System.out.println("This item has no use.");
                                 break;
