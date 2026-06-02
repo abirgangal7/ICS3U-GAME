@@ -17,7 +17,7 @@ public class Game {
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to the Text Adventure Game!");
+        System.out.println("Welcome to The Pale. You were a prisoner that was left in this dungeon after it was abandoned but there is a monster that awaits you. Your goal is to find the pale pendant and escape to the pale forest.");
         System.out.println("The commands for this game are:\n   Look, go [direction], take [item], drop [item], use [item], inventory, and help. \nHave fun!");
         Room currentRoom = rooms.get(player.getCurrentRoomId());
         System.out.println(currentRoom.getLongDescription(player));
