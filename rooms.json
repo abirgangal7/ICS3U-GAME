@@ -1,7 +1,7 @@
 {
     "startingRoom": {
       "name": "Entrance Hall",
-      "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, golden lock to your west. A long corridor is northward.", 
+      "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, golden lock to your west that needs 2 wires. A long corridor is northward.", 
       "exits": {
         "north": "corridor",
         "west": "cage"
@@ -77,7 +77,7 @@
         {
           "name": "Pale Servant",
           "description": "A Pale Servant is guarding the Pendant door",
-          "hp": 100,
+          "hp": 75,
           "dmg": 25,
           "inventory": [
             {
@@ -367,7 +367,7 @@
     },
     "north_hallway_cell_two": {
       "name": "North Prison Hallway",
-      "description": "The end of the northern hallway. West takes you to the middle of the hallway. The door to your north has a black lock with a sleek, fancy design. There is an open prison cell to your south with a very kind inmate ushering you in! Oh wait, that's just a skeleton. ",
+      "description": "The end of the northern hallway. West takes you to the middle of the hallway. The door to your north has a black lock with a sleek, fancy design saying Warden on it. There is an open prison cell to your south with a very kind inmate ushering you in! Oh wait, that's just a skeleton. ",
       "exits": {
         "south": "cell_two",
         "north": "ruined_room",
@@ -437,8 +437,8 @@
       "tags": [],
       "monsters": [
         {
-          "name": "The Juggernaut",
-          "description": "The Juggernaut stands in the area with its horse",
+          "name": "Juggernaut",
+          "description": "Juggernaut stands in the arena with its horse",
           "hp": 45,
           "dmg": 20,
           "inventory": [
