@@ -3,7 +3,7 @@
       "name": "Entrance Hall",
       "description": "You find yourself in a dim room with a stone table to your east. You see an unbreakable door with a strong, golden lock to your west. A long corridor is northward.", 
       "exits": {
-        "north": "cage",
+        "north": "corridor",
         "west": "cage"
       },
       "lockedExits": {
@@ -28,10 +28,10 @@
         {
           "id": "MCheeseburger",
           "name": "Moldy Cheeseburger",
-          "description": "It's a really, really moldy cheeseburger",
+          "description": "a really, really moldy cheeseburger",
           "use": "heal",
           "weight": 2,
-          "healAmt": 7
+          "healAmt": 15
         }
       ],
       "tags": [],
@@ -77,8 +77,8 @@
         {
           "name": "Pale Servant",
           "description": "A Pale Servant is guarding the Pendant door",
-          "hp": 60,
-          "dmg": 20,
+          "hp": 100,
+          "dmg": 25,
           "inventory": [
             {
               "id": "PaleBlade",
@@ -86,7 +86,7 @@
               "description": "A Pale Katana that has been passed down through generations.",
               "use": "weapon",
               "weight": 15,
-              "dmg": 30
+              "dmg": 35
             }
           ]
         }
@@ -133,10 +133,10 @@
         {
           "id": "BoxOfCookie",
           "name": "Box of Cookies",
-          "description": "It's a box of cookies.",
+          "description": "a box of cookies.",
           "use": "heal",
           "weight": 6,
-          "healAmt": 15
+          "healAmt": 35
         }
       ],
       "tags": [],
@@ -177,7 +177,7 @@
           "name": "Forgotten Warden",
           "description": "The Forgotten Warden roams around the office, as if it still works there.",
           "hp": 15,
-          "dmg": 7,
+          "dmg": 13,
           "inventory": [
             {
               "id": "wardenwep",
@@ -213,10 +213,10 @@
         {
           "id": "Cool Cheeseburger",
           "name": "Cool Cheeseburger",
-          "description": "It's a really, really cool cheeseburger",
+          "description": "a really, really cool cheeseburger",
           "use": "heal",
           "weight": 2,
-          "healAmt": 20
+          "healAmt": 50
         }
       ],
       "tags": ["light"],
@@ -253,7 +253,7 @@
             {
               "id": "Gerald's really cool hat",
               "name": "Gerald's really cool hat",
-              "description": "It's a really cool hat",
+              "description": "a really cool hat",
               "use": "weapon",
               "weight": 2,
               "dmg": 10000000000
@@ -275,8 +275,8 @@
           "name": "Giant Gnome",
           "description": "Its a really oversized gnome with a blade.",
           "use": "weapon",
-          "weight": 20,
-          "dmg": 25
+          "weight": 40,
+          "dmg": 30
         }
       ],
       "tags": [],
@@ -405,7 +405,7 @@
           "description": "A whole, 7 layer chocolate cake. I dont know why this is here but it tastes good.",
           "use": "heal",
           "weight": 20,
-          "healAmt": 32
+          "healAmt": 80
         }
       ],
       "tags": [],
@@ -440,7 +440,7 @@
           "name": "The Juggernaut",
           "description": "The Juggernaut stands in the area with its horse",
           "hp": 45,
-          "dmg": 10,
+          "dmg": 20,
           "inventory": [
             {
               "id": "Greataxe",
@@ -448,7 +448,7 @@
               "description": "A greataxe infused with the blood of prisoners that were executed.",
               "use": "weapon",
               "weight": 20,
-              "dmg": 17
+              "dmg": 21
             }
           ]
         }
@@ -456,7 +456,7 @@
     },
     "Secret arena room": {
       "name": "The Medical Room",
-      "description": "It's an abandonned medical room, used for sick people, filled with moss, ruined floor tiles, and empty hospital beds. ",
+      "description": "an abandonned medical room, used for sick people, filled with moss, ruined floor tiles, and empty hospital beds. ",
       "exits": {
         "south": "arena"
       },
@@ -467,7 +467,7 @@
           "description": "A vial with blue liquid in it called Lifeblood",
           "use": "heal",
           "weight": 2,
-          "healAmt": 55
+          "healAmt": 100
         }
       ],
       "tags": [],
@@ -504,7 +504,7 @@
           "description": "A ripped off arm that was from a corpse that has been infused with lifeblood.",
           "use": "heal",
           "weight": 5,
-          "healAmt": 25
+          "healAmt": 65
         }
       ],
       "tags": [],
@@ -523,7 +523,7 @@
           "name": "Serpent",
           "description": "A giant pale serpent blocks your path.",
           "hp": 200,
-          "dmg": 10,
+          "dmg": 30,
           "inventory": [
             {
               "id": "Pendant",

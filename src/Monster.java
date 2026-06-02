@@ -44,10 +44,22 @@ public class Monster {
 
     public void die(Room room, Player player) {
         if (hp <= 0) {
-            System.out.println("The " + name + " dies");
+            System.out.println("The " + name + " dies.");
             if (room.getId().matches("cage"))
             {
                System.out.println("A pale pendant is on the floor. Pick it up and you are marked forever"); 
+            }
+            if (room.getId().matches("warden_office"))
+            {
+               System.out.println("The warden's key and a rusty sword has dropped from the Forgotten Warden"); 
+            }
+            if (room.getId().matches("octagon"))
+            {
+               System.out.println("The Pale Katana has dropped from the Pale Servant"); 
+            }
+            if (room.getId().matches("arena"))
+            {
+               System.out.println("The Greataxe of the tomb has dropped from the Juggernaut."); 
             }
 
             for (Item item : inventory) {

@@ -20,7 +20,7 @@ public class Player {
         this.carry = 0;
         this.carry_cap = 60;
         this.dmg = 1;
-        this.hp = 50;
+        this.hp = 100;
         this.score = 0;
         this.money = 0;
         this.alive = true;
